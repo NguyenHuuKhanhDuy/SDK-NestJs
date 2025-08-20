@@ -1,0 +1,12 @@
+{
+  "AUTH": {
+    "AUTH_ERR_001": "Token is required",
+    "AUTH_ERR_002": "Token is invalid or expired",
+    "AUTH_ERR_003": "You do not have permission to access this resource"
+  },
+  "LGI": {
+    "LGI_ERR_001": "User not found",
+    "LGI_ERR_002": "Login failed, please check your username and password",
+    "LGI_ERR_003": "Account is locked, please contact support"
+  }
+}
