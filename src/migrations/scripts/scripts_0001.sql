@@ -14,3 +14,4 @@ ALTER TABLE "ecommerce"."role_permission" ADD CONSTRAINT "fk_role_permission__pe
 ALTER TABLE "ecommerce"."user_permission" ADD CONSTRAINT "fk_user_permission__user" FOREIGN KEY ("user_id") REFERENCES "ecommerce"."user"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "ecommerce"."user_permission" ADD CONSTRAINT "fk_user_permission__permission" FOREIGN KEY ("permission_id") REFERENCES "ecommerce"."permission"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "ecommerce"."permission" ADD CONSTRAINT "fk_permission__menu" FOREIGN KEY ("menu_id") REFERENCES "ecommerce"."menu"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "ecommerce"."menu" ADD CONSTRAINT "fk_menu__menu" FOREIGN KEY ("parent_id") REFERENCES "ecommerce"."menu"("id") ON DELETE CASCADE ON UPDATE NO ACTION;

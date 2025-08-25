@@ -6,7 +6,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { ValidationError } from '@nestjs/common/interfaces/external/validation-error.interface';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { CommonException } from '@src/common/exceptions';
-import { TransformInterceptor } from '@src/common/interceptor';
+import {
+  RequestContextInterceptor,
+  TransformInterceptor,
+} from '@src/common/interceptor';
 import { ConfigEnvironmentService } from '@src/configs/config-environment.base.service';
 import { SwaggerSetupModule } from '@src/infrastructure';
 import { Path } from 'nestjs-i18n';
@@ -65,6 +68,7 @@ async function bootstrap() {
     }),
   );
   app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalInterceptors(new RequestContextInterceptor());
 
   // Swagger
   SwaggerSetupModule.setup(app);

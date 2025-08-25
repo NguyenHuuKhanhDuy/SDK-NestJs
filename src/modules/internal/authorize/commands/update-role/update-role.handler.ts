@@ -1,5 +1,6 @@
 ﻿import { CommonException } from '@common/exceptions';
 import { JsonHelper, TimeHelper } from '@common/helper';
+import { RequestContextService } from '@common/interceptor';
 import { LoggerService } from '@core/services/logger';
 import { UpdateRoleCommand } from '@internal/authorize/commands/update-role/update-role.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
@@ -39,6 +40,7 @@ export class UpdateRoleHandler implements ICommandHandler<UpdateRoleCommand> {
       name: payload.name,
       description: payload.description,
       updatedAt: TimeHelper.nowUtc(),
+      updatedBy: RequestContextService.getCurrentUserFullName(),
     });
     const rolePermissions = payload.permissions.map((x) =>
       JsonHelper.toInstance(RolePermission, {

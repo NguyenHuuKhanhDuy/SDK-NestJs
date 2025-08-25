@@ -1,10 +1,9 @@
 ﻿import { BaseController } from '@common/models';
-import { CurrentUser } from '@core/decorator';
 import { Controller, Get } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 
-import { GetPermissionsQuery, GetPermissionsRequest } from './queries';
+import { GetPermissionsQuery } from './queries';
 
 @Controller({ path: 'user', version: '1' })
 @ApiTags('User')
@@ -14,10 +13,8 @@ export class UserController extends BaseController {
   }
 
   @Get('permissions')
-  async getPermissions(@CurrentUser('id') userId: string) {
-    const response = await this.query.execute(
-      new GetPermissionsQuery(new GetPermissionsRequest(userId)),
-    );
+  async getPermissions() {
+    const response = await this.query.execute(new GetPermissionsQuery());
 
     return this.successResponse(response.data);
   }

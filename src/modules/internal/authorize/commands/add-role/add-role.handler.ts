@@ -1,5 +1,6 @@
 ﻿import { CommonException } from '@common/exceptions';
 import { JsonHelper } from '@common/helper';
+import { RequestContextService } from '@common/interceptor';
 import { LoggerService } from '@core/services/logger';
 import { AddRoleCommand } from '@internal/authorize/commands/add-role/add-role.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
@@ -23,7 +24,7 @@ export class AddRoleHandler implements ICommandHandler<AddRoleCommand> {
     const role = JsonHelper.toInstance(Role, {
       name: payload.name,
       description: payload.description,
-      createdBy: 'System',
+      createdBy: RequestContextService.getCurrentUserFullName(),
     });
 
     if (payload.permissions && payload.permissions.length > 0) {

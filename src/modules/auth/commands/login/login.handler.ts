@@ -37,6 +37,8 @@ export class LoginHandler
         password: true,
         email: true,
         isSystemUser: true,
+        firstName: true,
+        lastName: true,
       },
     });
     if (!user) {
@@ -54,7 +56,6 @@ export class LoginHandler
       passwordDecrypted,
       user.password,
     );
-    this.logger.log(await SecurityHelper.hash('Saigon1751@'));
     if (!isValidPassword) {
       this.logger.warn(`${functionName} Password verification failed`);
       throw CommonException.Unauthorized('business.LGI.LGI_ERR_002');
@@ -63,6 +64,8 @@ export class LoginHandler
     const userData: JwtUserDto = {
       id: user.id,
       email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
       roles: user.roles.map((role) => role.roleId),
       permissions: user.permissions.map(
         (permission) => permission.permissionId,

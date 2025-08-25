@@ -1,5 +1,6 @@
 ﻿import { Columns, Tables } from '@common/constant';
 import { JsonHelper } from '@common/helper';
+import { RequestContextService } from '@common/interceptor';
 import { LoggerService } from '@core/services/logger';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { UnitOfWork } from '@src/infrastructure';
@@ -20,8 +21,8 @@ export class GetPermissionsHandler
   ) {}
 
   async execute(query: GetPermissionsQuery): Promise<GetPermissionsResponse> {
-    const payload = query.payload;
-    const functionName = `${GetPermissionsHandler.name} UserId = ${payload.userId} =>`;
+    const userId = RequestContextService.getCurrentUserId();
+    const functionName = `${GetPermissionsHandler.name} UserId = ${userId} =>`;
     this.logger.log(functionName);
 
     const userPermissionsQuery = this.uow.userPermissions
@@ -64,7 +65,7 @@ export class GetPermissionsHandler
         `data.${Columns.Base.ID} = p.${Columns.Base.ID}`,
       )
       .setParameters({
-        userId: payload.userId,
+        userId: userId,
       });
     const permissionsData = await permissionsQuery.getRawMany<{
       menu_id: string;

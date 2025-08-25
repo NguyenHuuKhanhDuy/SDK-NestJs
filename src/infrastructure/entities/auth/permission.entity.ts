@@ -1,4 +1,4 @@
-﻿import { PermissionType } from '@common/enum/permission-type';
+﻿import { PermissionType } from '@common/enum';
 import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
 import {
   Columns,

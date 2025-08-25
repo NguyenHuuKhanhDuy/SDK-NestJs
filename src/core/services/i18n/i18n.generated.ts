@@ -24,6 +24,22 @@ export type I18nTranslations = {
         };
     };
     "system": {
+        "AUTH": {
+            "AUTH_ERR_001": string;
+            "AUTH_ERR_002": string;
+            "AUTH_ERR_003": string;
+        };
+        "ROL": {
+            "ROL_ERR_001": string;
+            "ROL_ERR_002": string;
+            "ROL_ERR_003": string;
+            "ROL_ERR_004": string;
+        };
+        "LGI": {
+            "LGI_ERR_001": string;
+            "LGI_ERR_002": string;
+            "LGI_ERR_003": string;
+        };
         "EXH": {
             "EXH_ERR_001": string;
         };
