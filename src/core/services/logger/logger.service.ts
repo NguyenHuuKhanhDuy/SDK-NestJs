@@ -10,9 +10,7 @@ import { LOGGER_KEY } from './logger.constants';
 
 @Injectable()
 export class LoggerService implements NestLoggerService {
-  constructor(@Inject(LOGGER_KEY) private readonly logger: PinoLogger) {
-    console.log('LoggerService initialized');
-  }
+  constructor(@Inject(LOGGER_KEY) private readonly logger: PinoLogger) {}
 
   log(message: string, ...optionalParams: any[]) {
     this.logger.info({ params: optionalParams }, message);

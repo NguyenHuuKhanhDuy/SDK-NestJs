@@ -1,13 +1,10 @@
 ﻿import { BaseController } from '@common/models';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AddRoleCommand, AddRoleRequest } from './commands';
-import {
-  GetPermissionsAssignmentsQuery,
-  GetPermissionsAssignmentsRequest,
-} from './queries';
+import { GetPermissionsAssignmentsQuery } from './queries';
 
 @Controller({ path: 'internal/authorize', version: '1' })
 @ApiTags('Authorize')
@@ -26,11 +23,9 @@ export class BoAuthorizeController extends BaseController {
   }
 
   @Get('users/:userId/permissions/assignments')
-  async getPermissionsAssignments(
-    @Body() body: GetPermissionsAssignmentsRequest,
-  ) {
+  async getPermissionsAssignments(@Param('userId') userId: string) {
     const response = await this.query.execute(
-      new GetPermissionsAssignmentsQuery(body),
+      new GetPermissionsAssignmentsQuery(userId),
     );
     return this.successResponse(response.data);
   }

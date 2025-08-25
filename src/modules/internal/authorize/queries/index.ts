@@ -3,4 +3,3 @@
 export const queryHandlers = [GetPermissionsAssignmentsHandler];
 
 export * from './get-permission-by-menu/get-permissions-assignments.query';
-export * from './get-permission-by-menu/get-permissions-assignments.request';

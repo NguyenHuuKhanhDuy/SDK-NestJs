@@ -1,5 +1,5 @@
 ﻿import { Columns, Tables } from '@common/constant';
-import { CryptoJsHelper, JsonHelper } from '@common/helper';
+import { JsonHelper } from '@common/helper';
 import { LoggerService } from '@core/services/logger';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { UnitOfWork } from '@src/infrastructure';
@@ -79,10 +79,8 @@ export class GetPermissionsHandler
     response.data = Object.values(group).map(
       (item) =>
         new GetPermissionsResponseItem({
-          menuKey: CryptoJsHelper.encrypt(item[0].menu_key),
-          permissions: item.map((x) =>
-            CryptoJsHelper.encrypt(x.permission_key),
-          ),
+          menuKey: item[0].menu_key,
+          permissions: item.map((x) => x.permission_key),
         }),
     );
 

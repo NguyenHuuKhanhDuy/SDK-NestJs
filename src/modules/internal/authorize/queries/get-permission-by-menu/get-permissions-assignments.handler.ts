@@ -27,10 +27,10 @@ export class GetPermissionsAssignmentsHandler
   async execute(
     query: GetPermissionsAssignmentsQuery,
   ): Promise<GetPermissionsAssignmentsResponse> {
-    const payload = query.payload;
+    const { userId } = query;
     const functionName = `${GetPermissionsAssignmentsHandler.name} =>`;
     this.logger.log(
-      `${functionName} Start processing with payload: ${JsonHelper.serialize(payload)}`,
+      `${functionName} Start processing with payload: ${JsonHelper.serialize(userId)}`,
     );
 
     const userPermissionsQuery = this.uow.userPermissions
@@ -72,7 +72,7 @@ export class GetPermissionsAssignmentsHandler
         `data.${Columns.Base.ID} = p.${Columns.Base.ID}`,
       )
       .setParameters({
-        userId: payload.userId,
+        userId: userId,
       });
     const permissionsData = await permissionsQuery.getRawMany<{
       menu_id: string;

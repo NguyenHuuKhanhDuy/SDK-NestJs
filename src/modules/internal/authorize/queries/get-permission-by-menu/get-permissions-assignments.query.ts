@@ -1,5 +1,3 @@
-﻿import { GetPermissionsAssignmentsRequest } from './get-permissions-assignments.request';
-
-export class GetPermissionsAssignmentsQuery {
-  constructor(public readonly payload: GetPermissionsAssignmentsRequest) {}
+﻿export class GetPermissionsAssignmentsQuery {
+  constructor(public readonly userId: string) {}
 }
