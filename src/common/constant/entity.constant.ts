@@ -45,6 +45,7 @@ export const Columns = {
     Description: 'description',
     Key: 'key',
     MenuId: 'menu_id',
+    Type: 'type',
   },
   Role: {
     Name: 'name',
@@ -66,6 +67,7 @@ export const Columns = {
     Name: 'name',
     Key: 'key',
     Description: 'description',
+    ParentId: 'parent_id',
   },
 };
 
@@ -108,5 +110,8 @@ export const Keys = {
   },
   Menu: {
     Primary: 'pk_menu',
+    ForeignKey: {
+      Parent: 'fk_menu__parent',
+    },
   },
 };

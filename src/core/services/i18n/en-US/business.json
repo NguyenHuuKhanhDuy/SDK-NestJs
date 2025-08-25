@@ -4,6 +4,12 @@
     "AUTH_ERR_002": "Token is invalid or expired",
     "AUTH_ERR_003": "You do not have permission to access this resource"
   },
+  "ROL": {
+    "ROL_ERR_001": "Role not found",
+    "ROL_ERR_002": "Cannot delete role with assigned users",
+    "ROL_ERR_003": "Role name already exists",
+    "ROL_ERR_004": "Some permissions do not exist"
+  },
   "LGI": {
     "LGI_ERR_001": "User not found",
     "LGI_ERR_002": "Login failed, please check your username and password",

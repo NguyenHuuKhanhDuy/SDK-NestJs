@@ -1,4 +1,5 @@
-﻿import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
+﻿import { PermissionType } from '@common/enum/permission-type';
+import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
 import {
   Columns,
   Keys,
@@ -52,6 +53,9 @@ export class Permission extends AuditTableEntity {
     length: 256,
   })
   key: string;
+
+  @Column({ name: Columns.Permission.Type, type: 'int', nullable: false })
+  type: PermissionType;
 
   @OneToMany(() => UserPermission, (up) => up.permission)
   users: UserPermission[];

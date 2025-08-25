@@ -5,7 +5,14 @@ import {
   Schemas,
   Tables,
 } from '@src/common/constant/entity.constant';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Permission } from './permission.entity';
 
@@ -40,6 +47,22 @@ export class Menu extends AuditTableEntity {
     nullable: true,
   })
   description: string;
+
+  @Column({ name: Columns.Menu.ParentId, type: 'varchar', nullable: true })
+  parentId?: string | null;
+
+  @ManyToOne(() => Menu, (m) => m.children, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: Columns.Menu.ParentId,
+    foreignKeyConstraintName: Keys.Menu.ForeignKey.Parent,
+  })
+  parent?: Menu | null;
+
+  @OneToMany(() => Menu, (m) => m.parent)
+  children?: Menu[];
 
   @OneToMany(() => Permission, (permission) => permission.menu)
   permissions: Permission[];

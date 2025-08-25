@@ -1,30 +1,22 @@
 ﻿import { CommonException } from '@common/exceptions';
-import { JsonHelper } from '@common/helper';
+import { JsonHelper, TimeHelper } from '@common/helper';
 import { LoggerService } from '@core/services/logger';
-import { AddRoleCommand } from '@internal/authorize/commands/add-role/add-role.command';
+import { UpdateRoleCommand } from '@internal/authorize/commands/update-role/update-role.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Role, RolePermission, UnitOfWork } from '@src/infrastructure';
+import { RolePermission, UnitOfWork } from '@src/infrastructure';
 import { In } from 'typeorm';
 
-@CommandHandler(AddRoleCommand)
-export class AddRoleHandler implements ICommandHandler<AddRoleCommand> {
+@CommandHandler(UpdateRoleCommand)
+export class UpdateRoleHandler implements ICommandHandler<UpdateRoleCommand> {
   constructor(
     private readonly logger: LoggerService,
     private readonly uow: UnitOfWork,
   ) {}
 
-  async execute(command: AddRoleCommand): Promise<void> {
-    const payload = command.payload;
-    const functionName = `${AddRoleHandler.name} =>`;
-    this.logger.log(
-      `${functionName} Payload: ${JsonHelper.serialize(payload)}`,
-    );
-
-    const role = JsonHelper.toInstance(Role, {
-      name: payload.name,
-      description: payload.description,
-      createdBy: 'System',
-    });
+  async execute(command: UpdateRoleCommand): Promise<void> {
+    const { roleId, ...payload } = command.payload;
+    const functionName = `${UpdateRoleHandler.name} RoleId = ${roleId} =>`;
+    this.logger.log(functionName);
 
     if (payload.permissions && payload.permissions.length > 0) {
       const permissions = await this.uow.permissions.count({
@@ -43,10 +35,14 @@ export class AddRoleHandler implements ICommandHandler<AddRoleCommand> {
       }
     }
 
-    await this.uow.roles.insert(role);
+    await this.uow.roles.update(roleId, {
+      name: payload.name,
+      description: payload.description,
+      updatedAt: TimeHelper.nowUtc(),
+    });
     const rolePermissions = payload.permissions.map((x) =>
       JsonHelper.toInstance(RolePermission, {
-        roleId: role.id,
+        roleId: roleId,
         permissionId: x,
       }),
     );

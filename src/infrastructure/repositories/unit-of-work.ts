@@ -45,7 +45,6 @@ export class UnitOfWork {
     );
     this.userRoles = new UserRoleRepository(this.getRepository(UserRole));
     this.menus = new MenuRepository(this.getRepository(Menu));
-    console.log('UnitOfWork initialized with repositories');
   }
 
   private getRepository<T>(entity: { new (): T }) {

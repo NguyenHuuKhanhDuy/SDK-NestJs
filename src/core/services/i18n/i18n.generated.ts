@@ -11,6 +11,12 @@ export type I18nTranslations = {
             "AUTH_ERR_002": string;
             "AUTH_ERR_003": string;
         };
+        "ROL": {
+            "ROL_ERR_001": string;
+            "ROL_ERR_002": string;
+            "ROL_ERR_003": string;
+            "ROL_ERR_004": string;
+        };
         "LGI": {
             "LGI_ERR_001": string;
             "LGI_ERR_002": string;

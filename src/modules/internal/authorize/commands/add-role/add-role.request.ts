@@ -13,6 +13,6 @@ export class AddRoleRequest {
 
   @ApiPropertyOptional()
   @IsOptional()
-  @IsArray({ each: true })
+  @IsArray()
   permissions?: string[];
 }
