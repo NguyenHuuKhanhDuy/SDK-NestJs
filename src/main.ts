@@ -50,6 +50,25 @@ async function bootstrap() {
   const config = ConfigEnvironmentService.getIns();
   const port = config.get('APP_PORT') ?? 3000;
   const prefix = 'api';
+  const allowedOrigins = config
+    .get('CORS_ALLOWED_ORIGINS')
+    .toString()
+    .split(',');
+
+  // enableCors
+  if (allowedOrigins && allowedOrigins.length > 0) {
+    app.enableCors({
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true,
+    });
+  }
 
   // App setup
   app.setGlobalPrefix(prefix);

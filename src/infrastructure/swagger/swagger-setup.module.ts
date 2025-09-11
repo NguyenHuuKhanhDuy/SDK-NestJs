@@ -1,4 +1,5 @@
 ﻿import { BoAuthorizeModule } from '@internal/authorize/bo-authorize.module';
+import { BoMenuModule } from '@internal/menu/bo-menu.module';
 import { BoUserModule } from '@internal/user/bo-user.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { UserModule } from '@modules/user/user.module';
@@ -22,7 +23,7 @@ export class SwaggerSetupModule {
       .build();
 
     const authenticationModules = [AuthModule];
-    const internalModules = [BoAuthorizeModule, BoUserModule];
+    const internalModules = [BoAuthorizeModule, BoUserModule, BoMenuModule];
     const clientModules = [UserModule];
 
     // NOTE:: Setup main API Swagger UI with dropdown support

@@ -51,6 +51,25 @@ export class Menu extends AuditTableEntity {
   @Column({ name: Columns.Menu.ParentId, type: 'varchar', nullable: true })
   parentId?: string | null;
 
+  @Column({ name: Columns.Menu.OrderNo, type: 'int', nullable: false })
+  orderNo: number;
+
+  @Column({
+    name: Columns.Menu.IsActive,
+    type: 'boolean',
+    nullable: false,
+    default: false,
+  })
+  isActive: boolean;
+
+  @Column({
+    name: Columns.Menu.Link,
+    type: 'varchar',
+    nullable: true,
+    length: 256,
+  })
+  link: string;
+
   @ManyToOne(() => Menu, (m) => m.children, {
     nullable: true,
     onDelete: 'CASCADE',

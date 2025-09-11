@@ -8,7 +8,7 @@ async function runMigrations() {
   await connectionSource.initialize();
   const queryRunner = connectionSource.createQueryRunner();
 
-  // Tạo bảng lưu lịch sử migration nếu chưa có
+  // Create migration history table if not exists
   await queryRunner.query(`
     CREATE TABLE IF NOT EXISTS migration_scripts_history (
          id SERIAL PRIMARY KEY,

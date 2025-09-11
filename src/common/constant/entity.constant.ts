@@ -68,6 +68,9 @@ export const Columns = {
     Key: 'key',
     Description: 'description',
     ParentId: 'parent_id',
+    OrderNo: 'order_no',
+    IsActive: 'is_active',
+    Link: 'link',
   },
 };
 

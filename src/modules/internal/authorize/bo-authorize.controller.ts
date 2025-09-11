@@ -38,10 +38,18 @@ export class BoAuthorizeController extends BaseController {
   }
 
   @Get('roles/:roleId')
-  async getPermissionsAssigned(@Param('roleId') roleId: number) {
+  async getRoleDetail(@Param('roleId') roleId: number) {
     const response = await this.query.execute(
       new Roles.GetRoleDetailQuery(roleId),
     );
     return this.successResponse(response);
   }
+
+  // @Put('roles/:roleId')
+  // async updateRoles(@Param('roleId') roleId: number, @Body() body: UpdateRole) {
+  //   const response = await this.query.execute(
+  //     new Roles.GetRoleDetailQuery(roleId),
+  //   );
+  //   return this.successResponse(response);
+  // }
 }

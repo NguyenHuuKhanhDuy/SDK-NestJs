@@ -41,4 +41,8 @@ export class ConfigEnvironmentService {
 
     return ConfigEnvironmentService.configService;
   }
+
+  static isProduction() {
+    return this.getIns().get('NODE_ENV') === 'production';
+  }
 }

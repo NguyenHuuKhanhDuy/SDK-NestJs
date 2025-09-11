@@ -2,8 +2,10 @@
 import { BoUserModule } from '@internal/user/bo-user.module';
 import { Module } from '@nestjs/common';
 
+import { BoMenuModule } from './menu/bo-menu.module';
+
 @Module({
-  imports: [BoUserModule, BoAuthorizeModule],
+  imports: [BoUserModule, BoAuthorizeModule, BoMenuModule],
   providers: [],
   controllers: [],
   exports: [BoUserModule, BoAuthorizeModule],
