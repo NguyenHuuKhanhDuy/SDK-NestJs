@@ -1,5 +1,6 @@
 ﻿import * as process from 'node:process';
 
+import { EnvKey } from '@common/constant';
 import { TranslateService } from '@core/services/i18n/i18n.service';
 import { Module } from '@nestjs/common';
 import { NODE_ENV } from '@src/common/enum/common.enum';
@@ -7,11 +8,10 @@ import { ConfigEnvironmentService } from '@src/configs/config-environment.base.s
 import {
   AcceptLanguageResolver,
   I18nModule as I18nModuleImport,
-  QueryResolver,
 } from 'nestjs-i18n';
 import * as path from 'path';
 const isLocal =
-  ConfigEnvironmentService.getIns().get('NODE_ENV') === NODE_ENV.LOCAL;
+  ConfigEnvironmentService.getIns().get(EnvKey.App.NodeEnv) === NODE_ENV.LOCAL;
 @Module({
   imports: [
     I18nModuleImport.forRoot({
@@ -23,10 +23,7 @@ const isLocal =
       typesOutputPath: isLocal
         ? path.join(process.cwd(), '/src/core/services/i18n/i18n.generated.ts')
         : undefined,
-      resolvers: [
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-      ],
+      resolvers: [AcceptLanguageResolver],
     }),
   ],
   providers: [TranslateService],

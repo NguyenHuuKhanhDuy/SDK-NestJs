@@ -1,19 +1,29 @@
-﻿import { connectionSource } from '@src/configs/typeorm.config';
+﻿// migration-runner.ts
+import { LoggerService } from '@core/services/logger';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from '@src/app.module';
+import { connectionSource } from '@src/configs/typeorm.config';
 import * as fs from 'fs';
 import * as path from 'path';
 
 const migrationOrder = ['sequences', 'scripts', 'functions', 'alter', 'seed'];
 
 async function runMigrations() {
+  // 👉 Khởi tạo NestJS context để inject service
+  const appContext = await NestFactory.createApplicationContext(AppModule, {
+    logger: false, // disable default Nest logger
+  });
+
+  const logger = appContext.get(LoggerService);
+
   await connectionSource.initialize();
   const queryRunner = connectionSource.createQueryRunner();
 
-  // Create migration history table if not exists
   await queryRunner.query(`
     CREATE TABLE IF NOT EXISTS migration_scripts_history (
-         id SERIAL PRIMARY KEY,
-         script_name TEXT UNIQUE,
-         executed_at TIMESTAMP DEFAULT now()
+             id SERIAL PRIMARY KEY,
+             script_name TEXT UNIQUE,
+             executed_at TIMESTAMP DEFAULT now()
       )
   `);
 
@@ -21,7 +31,7 @@ async function runMigrations() {
     for (const folder of migrationOrder) {
       const folderPath = path.join(process.cwd(), 'src', 'migrations', folder);
       if (!fs.existsSync(folderPath)) {
-        console.log(`❌ Folder not found: ${folderPath}`);
+        logger.warn(`❌ Folder not found: ${folderPath}`);
         continue;
       }
 
@@ -37,16 +47,14 @@ async function runMigrations() {
         );
 
         if (alreadyRun.length > 0) {
-          console.log(`🟡 Skip (already run): ${file}`);
+          logger.warn(`🟡 Skip (already run): ${file}`);
           continue;
         }
 
-        console.log(`🚀 Running: ${file}`);
-
+        logger.log(`🚀 Running: ${file}`);
         let sql = fs.readFileSync(path.join(folderPath, file), 'utf8');
         sql = sql.replace(/^\uFEFF/, '');
 
-        // Bắt đầu transaction cho file
         await queryRunner.startTransaction();
         try {
           await queryRunner.query(sql);
@@ -55,22 +63,23 @@ async function runMigrations() {
             [file],
           );
           await queryRunner.commitTransaction();
-          console.log(`✅ Done: ${file}`);
+          logger.log(`✅ Done: ${file}`);
         } catch (err) {
           await queryRunner.rollbackTransaction();
-          console.error(`❌ Error in file ${file}, rolled back changes.`, err);
+          logger.error(`❌ Error in file ${file}, rolled back changes.`, err);
           throw err;
         }
       }
     }
 
-    console.log('✅ All migrations executed.');
+    logger.log('✅ All migrations executed.');
   } catch (err) {
-    console.error('❌ Migration failed', err);
+    logger.error('❌ Migration failed', err);
     process.exit(1);
   } finally {
     await queryRunner.release();
     await connectionSource.destroy();
+    await appContext.close();
   }
 }
 

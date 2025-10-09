@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CryptoJsHelper } from '@src/common/helper';
 import { BaseController } from '@src/common/models';
 
-import { LoginCommand, LoginRequest } from './commands';
+import { LoginCommand, LoginRequest, LogoutCommand } from './commands';
 
 @Controller({ path: 'auth' })
 @ApiTags('Authentication')
@@ -20,6 +20,12 @@ export class AuthController extends BaseController {
   async login(@Body() body: LoginRequest) {
     const response = await this.command.execute(new LoginCommand(body));
     return this.successResponse(response);
+  }
+
+  @Post('logout')
+  async logout() {
+    await this.command.execute(new LogoutCommand());
+    return this.successResponse(null);
   }
 
   @Public()

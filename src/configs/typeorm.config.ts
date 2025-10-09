@@ -1,3 +1,4 @@
+import { EnvKey } from '@common/constant';
 import * as Entities from '@infrastructure/entities';
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -13,11 +14,11 @@ const allEntities = [...Object.values(Entities)].filter(
 );
 export const TypeOrmConfig = {
   type: 'postgres',
-  host: ConfigEnvironmentService.getIns().get('DB_HOST'),
-  port: Number(ConfigEnvironmentService.getIns().get('DB_PORT')),
-  username: ConfigEnvironmentService.getIns().get('DB_USER'),
-  password: ConfigEnvironmentService.getIns().get('DB_PASS'),
-  database: ConfigEnvironmentService.getIns().get('DB_NAME'),
+  host: ConfigEnvironmentService.getIns().get(EnvKey.Database.Host),
+  port: Number(ConfigEnvironmentService.getIns().get(EnvKey.Database.Port)),
+  username: ConfigEnvironmentService.getIns().get(EnvKey.Database.User),
+  password: ConfigEnvironmentService.getIns().get(EnvKey.Database.Password),
+  database: ConfigEnvironmentService.getIns().get(EnvKey.Database.Name),
   entities: allEntities,
   migrations: ['dist/migrations/*{.ts,.js}'],
   cli: {
@@ -26,7 +27,9 @@ export const TypeOrmConfig = {
   migrationsRun: false,
   synchronize: false,
   logging:
-    ConfigEnvironmentService.getIns().get('DEBUG_LOGGING_TYPEORM') === 'true',
+    ConfigEnvironmentService.getIns().get(
+      EnvKey.Database.DebugLoggingTypeOrm,
+    ) === 'true',
   extra: { charset: 'utf8mb4' },
 } as TypeOrmModuleOptions;
 

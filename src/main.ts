@@ -1,7 +1,9 @@
+import { EnvKey } from '@common/constant';
 import { ExceptionsFilter } from '@core/filter';
 import { I18nTranslations } from '@core/services/i18n';
 import { TranslateService } from '@core/services/i18n/i18n.service';
 import { JwtAuthGuard, JwtTokenService } from '@core/services/jwt';
+import { RedisService } from '@core/services/redis';
 import { ValidationPipe } from '@nestjs/common';
 import { ValidationError } from '@nestjs/common/interfaces/external/validation-error.interface';
 import { NestFactory, Reflector } from '@nestjs/core';
@@ -45,13 +47,14 @@ async function bootstrap() {
   const logger = app.get(Logger);
   const reflector = app.get(Reflector);
   const jwtService = app.get(JwtTokenService);
+  const redisService = app.get(RedisService);
 
   // Config
   const config = ConfigEnvironmentService.getIns();
-  const port = config.get('APP_PORT') ?? 3000;
+  const port = config.get(EnvKey.App.Port) ?? 3000;
   const prefix = 'api';
   const allowedOrigins = config
-    .get('CORS_ALLOWED_ORIGINS')
+    .get(EnvKey.App.CorsAllowedOrigins)
     .toString()
     .split(',');
 
@@ -76,7 +79,7 @@ async function bootstrap() {
   app.useLogger(logger);
 
   // Global guards, filters, pipes, interceptors
-  app.useGlobalGuards(new JwtAuthGuard(reflector, jwtService));
+  app.useGlobalGuards(new JwtAuthGuard(reflector, jwtService, redisService));
   app.useGlobalFilters(new ExceptionsFilter(logger));
   app.useGlobalPipes(
     new ValidationPipe({

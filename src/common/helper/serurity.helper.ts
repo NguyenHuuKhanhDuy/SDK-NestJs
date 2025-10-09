@@ -1,5 +1,5 @@
 ﻿import * as bcrypt from 'bcrypt';
-import { randomUUID } from 'crypto';
+import { randomBytes, randomUUID } from 'crypto';
 
 export class SecurityHelper {
   /**
@@ -58,5 +58,17 @@ export class SecurityHelper {
       .split('')
       .sort(() => 0.5 - Math.random())
       .join('');
+  }
+
+  /**
+   * Generate a unique and secure session ID.
+   * This ID is short, URL-safe, and random enough for session tracking.
+   */
+  static generateSessionId(): string {
+    // randomBytes(16) gives 128-bit entropy (same as UUID v4)
+    return randomBytes(16)
+      .toString('base64url') // URL-safe Base64 (no + / or =)
+      .replace(/[^a-zA-Z0-9-_]/g, '')
+      .substring(0, 22); // keep short but unique
   }
 }

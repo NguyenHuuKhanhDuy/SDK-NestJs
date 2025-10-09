@@ -1,5 +1,6 @@
 ﻿import { JwtTokenService } from '@core/services/jwt';
 import { LoggerService } from '@core/services/logger';
+import { RedisService } from '@core/services/redis';
 import { UnitOfWork } from '@infrastructure/repositories/unit-of-work';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CommonConstant } from '@src/common/constant';
@@ -18,6 +19,7 @@ export class LoginHandler
     private readonly logger: LoggerService,
     private readonly jwtService: JwtTokenService,
     private readonly uow: UnitOfWork,
+    private readonly redis: RedisService,
   ) {}
 
   async execute(command: LoginCommand): Promise<LoginResponse> {
@@ -61,6 +63,7 @@ export class LoginHandler
       throw CommonException.Unauthorized('business.LGI.LGI_ERR_002');
     }
 
+    const sessionId = SecurityHelper.generateSessionId();
     const userData: JwtUserDto = {
       id: user.id,
       email: user.email,
@@ -71,13 +74,23 @@ export class LoginHandler
         (permission) => permission.permissionId,
       ),
       isSystemUser: user.isSystemUser,
+      sessionId: sessionId,
     };
+
+    // Store session in Redis
+    await this.redis.createSession(
+      user.id,
+      sessionId,
+      '',
+      CommonConstant.TokenExpires,
+    );
 
     response.expiresIn = CommonConstant.TokenExpires;
     response.accessToken = this.jwtService.sign(
       userData,
       CommonConstant.TokenExpires,
     );
+
     return response;
   }
 }

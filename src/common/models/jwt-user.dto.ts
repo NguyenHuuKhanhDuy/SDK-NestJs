@@ -6,6 +6,7 @@
   roles: string[];
   permissions: string[];
   isSystemUser: boolean;
+  sessionId: string;
   iat?: number;
   exp?: number;
 }

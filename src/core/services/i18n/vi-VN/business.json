@@ -1,12 +1,18 @@
 {
   "AUTH": {
-    "AUTH_ERR_001": "Token is required",
-    "AUTH_ERR_002": "Token is invalid or expired",
-    "AUTH_ERR_003": "You do not have permission to access this resource"
+    "AUTH_ERR_001": "Token là bắt buộc",
+    "AUTH_ERR_002": "Token không hợp lệ hoặc đã hết hạn",
+    "AUTH_ERR_003": "Bạn không có quyền truy cập tài nguyên này"
+  },
+  "ROL": {
+    "ROL_ERR_001": "Không tìm thấy vai trò",
+    "ROL_ERR_002": "Không thể xóa vai trò đang được gán cho người dùng",
+    "ROL_ERR_003": "Tên vai trò đã tồn tại",
+    "ROL_ERR_004": "Một số quyền không tồn tại"
   },
   "LGI": {
-    "LGI_ERR_001": "User not found",
-    "LGI_ERR_002": "Login failed, please check your username and password",
-    "LGI_ERR_003": "Account is locked, please contact support"
+    "LGI_ERR_001": "Không tìm thấy người dùng",
+    "LGI_ERR_002": "Đăng nhập thất bại, vui lòng kiểm tra lại tên đăng nhập và mật khẩu",
+    "LGI_ERR_003": "Tài khoản đã bị khóa, vui lòng liên hệ hỗ trợ"
   }
 }

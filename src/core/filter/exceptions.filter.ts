@@ -3,6 +3,7 @@ import {
   ArgumentsHost,
   Catch,
   ExceptionFilter,
+  HttpException,
   HttpStatus,
 } from '@nestjs/common';
 import { BusinessException } from '@src/common/exceptions/business.exception';
@@ -18,6 +19,7 @@ export class ExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
+
     const baseResponse: IErrorResponse<null> = {
       success: false,
       errorMessage: TranslateService.t('system.EXH.EXH_ERR_001'),
@@ -26,7 +28,7 @@ export class ExceptionsFilter implements ExceptionFilter {
     };
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
-    let errorResponse: any = {};
+    let errorResponse: Record<string, any> = {};
 
     if (exception instanceof BusinessException) {
       status = exception.getStatus();
@@ -39,7 +41,22 @@ export class ExceptionsFilter implements ExceptionFilter {
         errorResponse.message ?? baseResponse.errorMessage;
       baseResponse.errorMessageCode =
         errorResponse.errorCode ?? baseResponse.errorMessageCode;
-    } else if (exception instanceof Error) {
+    }
+    // ✅ Handle built-in NestJS exceptions (NotFound, BadRequest, etc.)
+    else if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      const res = exception.getResponse();
+      errorResponse =
+        typeof res === 'string'
+          ? { message: res }
+          : (res as Record<string, any>);
+      baseResponse.errorMessage =
+        errorResponse.message ?? baseResponse.errorMessage;
+      baseResponse.errorMessageCode =
+        errorResponse.errorCode ?? baseResponse.errorMessageCode;
+    }
+    // ✅ Fallback: unexpected or unknown errors
+    else if (exception instanceof Error) {
       this.logger.error(
         {
           timestamp: new Date().toISOString(),
