@@ -14,6 +14,12 @@ export class NotificationQueueProcessor {
 
   @Process(QueueConstant.Notification.Jobs.SendNotification)
   async handleSendEmail(job: Job<SendNotificationDto>) {
+    this.logger.log(
+      `${NotificationQueueProcessor.name}#${this.handleSendEmail.name} => Processing job id: ${job.id} with data: ${JSON.stringify(
+        job.data,
+      )}`,
+    );
+
     await this.communication.send(job.data);
   }
 }
