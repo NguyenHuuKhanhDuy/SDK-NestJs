@@ -2,6 +2,9 @@
 import {
   Department,
   Menu,
+  Notification,
+  NotificationSetting,
+  NotificationTemplate,
   Permission,
   Role,
   RolePermission,
@@ -12,6 +15,9 @@ import {
 import {
   DepartmentRepository,
   MenuRepository,
+  NotificationRepository,
+  NotificationSettingRepository,
+  NotificationTemplateRepository,
   PermissionRepository,
   RolePermissionRepository,
   RoleRepository,
@@ -31,6 +37,9 @@ export class UnitOfWork {
   public readonly userPermissions: UserPermissionRepository;
   public readonly userRoles: UserRoleRepository;
   public readonly menus: MenuRepository;
+  public readonly notifications: NotificationRepository;
+  public readonly notificationSettings: NotificationSettingRepository;
+  public readonly notificationTemplates: NotificationTemplateRepository;
 
   constructor(
     private readonly dataSource: DataSource,
@@ -50,6 +59,15 @@ export class UnitOfWork {
     );
     this.userRoles = new UserRoleRepository(em.getRepository(UserRole));
     this.menus = new MenuRepository(em.getRepository(Menu));
+    this.notifications = new NotificationRepository(
+      em.getRepository(Notification),
+    );
+    this.notificationSettings = new NotificationSettingRepository(
+      em.getRepository(NotificationSetting),
+    );
+    this.notificationTemplates = new NotificationTemplateRepository(
+      em.getRepository(NotificationTemplate),
+    );
   }
 
   async withTransaction<T>(

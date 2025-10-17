@@ -21,4 +21,9 @@
     Secret: 'JWT_SECRET',
     Expires: 'JWT_EXPIRES_IN',
   },
+  SendGrid: {
+    ApiKey: 'SEND_GRID_KEY',
+    Email: 'SEND_GRID_EMAIL',
+    Name: 'SEND_GRID_NAME',
+  },
 };

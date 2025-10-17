@@ -1,5 +1,6 @@
 ﻿export const Schemas = {
   Ecommerce: 'ecommerce',
+  Communication: 'communication',
 };
 
 export const Tables = {
@@ -11,6 +12,9 @@ export const Tables = {
   UserPermission: 'user_permission',
   UserRole: 'user_role',
   Menu: 'menu',
+  Notification: 'notification',
+  NotificationSetting: 'notification_setting',
+  NotificationTemplate: 'notification_template',
 };
 
 export const Columns = {
@@ -50,6 +54,7 @@ export const Columns = {
   Role: {
     Name: 'name',
     Description: 'description',
+    Type: 'type',
   },
   RolePermission: {
     RoleId: 'role_id',
@@ -71,6 +76,35 @@ export const Columns = {
     OrderNo: 'order_no',
     IsActive: 'is_active',
     Link: 'link',
+  },
+  Notification: {
+    UserId: 'recipient_id',
+    TemplateId: 'template_id',
+    Message: 'message',
+    Link: 'link',
+    SendingTime: 'sending_time',
+    SuccessSendingTime: 'succeed_sending_time',
+    IsRead: 'is_read',
+    ReadAt: 'read_at',
+    ActionType: 'action_type',
+    ActionData: 'action_data',
+  },
+  NotificationSetting: {
+    Name: 'name',
+    Description: 'description',
+    Type: 'type',
+    IsUrgent: 'is_urgent',
+  },
+  NotificationTemplate: {
+    Type: 'type',
+    Code: 'code',
+    Description: 'description',
+    SettingId: 'notification_setting_id',
+    EmailSender: 'email_sender',
+    Subject: 'subject',
+    ListOfRecipientTypes: 'list_of_recipient_types',
+    Content: 'content',
+    IsLatestVersion: 'is_latest_version',
   },
 };
 
@@ -115,6 +149,22 @@ export const Keys = {
     Primary: 'pk_menu',
     ForeignKey: {
       Parent: 'fk_menu__parent',
+    },
+  },
+  Notification: {
+    Primary: 'pk_notification',
+    ForeignKey: {
+      NotificationTemplate: 'fk_notification__notification_template',
+      Recipient: 'fk_notification__user',
+    },
+  },
+  NotificationSetting: {
+    Primary: 'pk_notification_setting',
+  },
+  NotificationTemplate: {
+    Primary: 'pk_notification_template',
+    ForeignKey: {
+      NotificationSetting: 'fk_notification_template__notification_setting',
     },
   },
 };

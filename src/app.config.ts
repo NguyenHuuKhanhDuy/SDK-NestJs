@@ -23,4 +23,14 @@ export const APP_CONFIG = {
   //JWT
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
+
+  // Redis configuration
+  REDIS_HOST: process.env.REDIS_HOST,
+  REDIS_PORT: process.env.REDIS_PORT,
+  REDIS_PASS: process.env.REDIS_PASS,
+
+  // SendGrid
+  SEND_GRID_KEY: process.env.SEND_GRID_KEY,
+  SEND_GRID_EMAIL: process.env.SEND_GRID_EMAIL,
+  SEND_GRID_NAME: process.env.SEND_GRID_NAME,
 };

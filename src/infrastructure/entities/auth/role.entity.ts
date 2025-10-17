@@ -1,4 +1,5 @@
-﻿import { RolePermission, UserRole } from '@infrastructure/entities';
+﻿import { RoleType } from '@common/enum';
+import { RolePermission, UserRole } from '@infrastructure/entities';
 import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
 import {
   Columns,
@@ -31,6 +32,9 @@ export class Role extends AuditTableEntity {
     nullable: true,
   })
   description: string;
+
+  @Column({ name: Columns.Role.Type, type: 'int', nullable: false })
+  type: RoleType;
 
   @OneToMany(() => UserRole, (ur) => ur.role)
   users: UserRole[];

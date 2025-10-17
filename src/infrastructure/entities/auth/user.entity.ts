@@ -1,5 +1,4 @@
-﻿import { UserPermission } from '@infrastructure/entities';
-import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
+﻿import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
 import {
   Columns,
   Keys,
@@ -18,6 +17,7 @@ import {
 } from 'typeorm';
 
 import { Department } from './department.entity';
+import { UserPermission } from './user-permisstion.entity';
 import { UserRole } from './user-role.entity';
 
 @Entity({ name: Tables.User, schema: Schemas.Ecommerce })

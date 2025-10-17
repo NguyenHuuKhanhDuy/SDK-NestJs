@@ -1,4 +1,5 @@
-﻿import { Injectable, OnModuleDestroy } from '@nestjs/common';
+﻿import { JsonHelper } from '@common/helper';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import Redis from 'ioredis';
 
@@ -22,12 +23,13 @@ export class BaseRedisService implements OnModuleDestroy {
     return this.client.del(key);
   }
 
-  async hset(key: string, field: string, value: string) {
-    return this.client.hset(key, field, value);
+  async hset(key: string, field: string, value: object) {
+    return this.client.hset(key, field, JsonHelper.serialize(value));
   }
 
-  async hget(key: string, field: string): Promise<string | null> {
-    return this.client.hget(key, field);
+  async hget<T>(key: string, field: string): Promise<T | null> {
+    const value = await this.client.hget(key, field);
+    return value ? JSON.parse(value) : null;
   }
 
   async hgetall(key: string): Promise<Record<string, string>> {

@@ -1,5 +1,7 @@
-﻿import { JwtTokenService } from '@core/services/jwt';
+﻿import { TemplateCode } from '@common/enum';
+import { JwtTokenService } from '@core/services/jwt';
 import { LoggerService } from '@core/services/logger';
+import { QueueUnitOfWork } from '@core/services/queue';
 import { RedisService } from '@core/services/redis';
 import { UnitOfWork } from '@infrastructure/repositories/unit-of-work';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
@@ -20,6 +22,7 @@ export class LoginHandler
     private readonly jwtService: JwtTokenService,
     private readonly uow: UnitOfWork,
     private readonly redis: RedisService,
+    private readonly queue: QueueUnitOfWork,
   ) {}
 
   async execute(command: LoginCommand): Promise<LoginResponse> {
@@ -91,6 +94,43 @@ export class LoginHandler
       CommonConstant.TokenExpires,
     );
 
+    void this.queue.notification.sendNotification({
+      recipients: [
+        {
+          recipientId: 'dbd8172b-6a0b-4ecb-a00c-bb47d24a5882',
+          recipientEmail: 'duynguyenhuukhanh.work@gmail.com',
+          personalizeContentModel: {
+            firstName: 'Duy 1',
+            fullName: 'Duy Nguyen Huu Khanh 1',
+          },
+        },
+        {
+          recipientId: 'dbd8172b-6a0b-4ecb-a00c-bb47d24a5882',
+          recipientEmail: 'duynguyenhuukhanh.work@gmail.com',
+          personalizeContentModel: {
+            firstName: 'Duy 2',
+            fullName: 'Duy Nguyen Huu Khanh 2',
+          },
+        },
+      ],
+      contentModel: {
+        brand_name: 'YourBrand',
+        email_title: 'Login Successful',
+        intro_text: `Hello ${user.firstName}, you have successfully logged in.`,
+        cta_text: 'Visit Dashboard',
+        cta_link: 'https://yourapp.com/dashboard',
+        feature1_title: 'Secure Access',
+        feature1_desc:
+          'Your account is protected with top-notch security measures.',
+        feature2_title: '24/7 Support',
+        feature2_desc:
+          'Our support team is here to help you anytime, anywhere.',
+        extra_note:
+          'If you did not perform this login, please reset your password immediately.',
+        secondary_text: 'Thank you for choosing YourBrand!',
+      },
+      notificationTemplateCode: TemplateCode.N000001,
+    });
     return response;
   }
 }
