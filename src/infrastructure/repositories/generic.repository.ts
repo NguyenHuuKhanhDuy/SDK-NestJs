@@ -27,6 +27,12 @@ export class GenericRepository<Entity extends ObjectLiteral>
     return this.repository.findOne(options);
   }
 
+  existsBy(
+    where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[],
+  ): Promise<boolean> {
+    return this.repository.existsBy(where);
+  }
+
   findBy(where: FindOptionsWhere<Entity>): Promise<Entity[]> {
     return this.repository.findBy(where);
   }

@@ -14,5 +14,49 @@
     "LGI_ERR_001": "Không tìm thấy người dùng",
     "LGI_ERR_002": "Đăng nhập thất bại, vui lòng kiểm tra lại tên đăng nhập và mật khẩu",
     "LGI_ERR_003": "Tài khoản đã bị khóa, vui lòng liên hệ hỗ trợ"
+  },
+  "REG": {
+    "REG_ERR_001": "Email là bắt buộc",
+    "REG_ERR_002": "Mật khẩu là bắt buộc",
+    "REG_ERR_003": "Tên là bắt buộc",
+    "REG_ERR_004": "Họ là bắt buộc",
+    "REG_ERR_005": "Quốc gia là bắt buộc",
+    "REG_ERR_006": "Định dạng email không hợp lệ, vui lòng kiểm tra lại",
+    "REG_ERR_007": "Tên phải ít hơn {max} ký tự",
+    "REG_ERR_008": "Họ phải ít hơn {max} ký tự",
+    "REG_ERR_009": "Email phải ít hơn {max} ký tự",
+    "REG_ERR_010": "Mật khẩu không hợp lệ",
+    "REG_ERR_011": "Mật khẩu phải có độ dài từ {min} đến {max} ký tự, bao gồm chữ hoa, chữ thường, số và không chứa khoảng trắng.",
+    "REG_ERR_012": "Quốc gia không hợp lệ",
+    "REG_ERR_013": "Địa chỉ email đã được đăng ký"
+  },
+  "VRE": {
+    "VRE_ERR_001": "Email của bạn đã được xác minh",
+    "VRE_ERR_002": "Không tìm thấy tài khoản giao dịch",
+    "VRE_ERR_003": "Mã xác nhận email không đúng hoặc đã hết hạn",
+    "VRE_ERR_004": "Trường Token là bắt buộc",
+    "VRE_ERR_005": "Không tìm thấy người dùng"
+  },
+  "CHP": {
+    "CHP_ERR_001": "Mật khẩu hiện tại không đúng",
+    "CHP_ERR_002": "Mật khẩu mới phải khác với mật khẩu hiện tại",
+    "CHP_ERR_003": "Mật khẩu mới là bắt buộc",
+    "CHP_ERR_004": "Mật khẩu cũ là bắt buộc",
+    "CHP_ERR_005": "Mật khẩu mới phải có độ dài từ {min} đến {max} ký tự, bao gồm chữ hoa, chữ thường, số và không chứa khoảng trắng.",
+    "CHP_ERR_006": "Mật khẩu mới không hợp lệ",
+    "CHP_ERR_007": "Mật khẩu cũ không hợp lệ",
+    "CHP_ERR_008": "Không tìm thấy người dùng"
+  },
+  "FGP": {
+    "FGP_ERR_001": "Email là bắt buộc",
+    "FGP_ERR_002": "Không tìm thấy email",
+    "FGP_ERR_003": "Định dạng email không hợp lệ, vui lòng kiểm tra lại",
+    "FGP_ERR_004": "Mã khôi phục mật khẩu không đúng hoặc đã hết hạn",
+    "FGP_ERR_005": "Mật khẩu mới là bắt buộc",
+    "FGP_ERR_006": "Mật khẩu mới phải có độ dài từ {min} đến {max} ký tự, bao gồm chữ hoa, chữ thường, số và không chứa khoảng trắng.",
+    "FGP_ERR_007": "Không tìm thấy người dùng",
+    "FGP_ERR_008": "Email phải ít hơn {max} ký tự",
+    "FGP_ERR_009": "Email chưa được xác nhận",
+    "FGP_ERR_010": "Mật khẩu mới không hợp lệ"
   }
 }

@@ -9,3 +9,5 @@ ALTER TABLE "ecommerce"."permission" ADD CONSTRAINT "fk_permission__menu" FOREIG
 ALTER TABLE "ecommerce"."menu" ADD CONSTRAINT "fk_menu__parent" FOREIGN KEY ("parent_id") REFERENCES "ecommerce"."menu"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "communication"."notification_template" ADD CONSTRAINT "fk_notification_template__notification_setting" FOREIGN KEY ("notification_setting_id") REFERENCES "communication"."notification_setting"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE "communication"."notification" ADD CONSTRAINT "fk_notification__notification_template" FOREIGN KEY ("template_id") REFERENCES "communication"."notification_template"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "communication"."notification" ADD CONSTRAINT "fk_notification__user" FOREIGN KEY ("recipient_id") REFERENCES "ecommerce"."user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "ecommerce"."user" ADD CONSTRAINT "fk_user__country" FOREIGN KEY ("country_id") REFERENCES "ecommerce"."country"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

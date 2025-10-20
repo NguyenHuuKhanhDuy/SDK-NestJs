@@ -1,1 +1,2 @@
-﻿export * from './dtos';
+﻿export * from './communication.constant';
+export * from './dtos';

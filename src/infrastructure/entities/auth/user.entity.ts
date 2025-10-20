@@ -1,4 +1,5 @@
 ﻿import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
+import { Country } from '@infrastructure/entities/country.entity';
 import {
   Columns,
   Keys,
@@ -7,6 +8,7 @@ import {
 } from '@src/common/constant/entity.constant';
 import { Provider } from '@src/common/enum/provider';
 import { UserStatus } from '@src/common/enum/user-status';
+import { Notification } from '@src/infrastructure/entities/communication/notification.entity';
 import {
   Column,
   Entity,
@@ -28,7 +30,12 @@ export class User extends AuditTableEntity {
   })
   id: string;
 
-  @Column({ name: Columns.User.DepartmentId, type: 'bigint', unsigned: true })
+  @Column({
+    name: Columns.User.DepartmentId,
+    type: 'bigint',
+    unsigned: true,
+    nullable: true,
+  })
   departmentId: number;
 
   @Column({
@@ -90,6 +97,13 @@ export class User extends AuditTableEntity {
   @Column({ name: Columns.User.Provider, type: 'int', nullable: false })
   provider: Provider;
 
+  @Column({
+    name: Columns.User.CountryId,
+    type: 'int',
+    nullable: true,
+  })
+  countryId: number;
+
   @ManyToOne(() => Department, (department) => department.users, {
     nullable: true,
   })
@@ -104,4 +118,14 @@ export class User extends AuditTableEntity {
 
   @OneToMany(() => UserPermission, (up) => up.user)
   permissions: UserPermission[];
+
+  @ManyToOne(() => Country, (country) => country.users)
+  @JoinColumn({
+    name: Columns.User.CountryId,
+    foreignKeyConstraintName: Keys.User.ForeignKey.Country,
+  })
+  country: Country;
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications: Notification[];
 }

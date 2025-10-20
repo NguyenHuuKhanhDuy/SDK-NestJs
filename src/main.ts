@@ -23,20 +23,43 @@ import { AppModule } from './app.module';
  * Custom validation exception handler
  */
 function validationExceptionFactory(errors: ValidationError[]) {
-  const formattedErrors = errors.map((err) => ({
-    field: err.property,
-    errors: Object.values(err.constraints ?? {}),
-  }));
-
-  const firstError = formattedErrors[0]?.errors[0];
-  if (TranslateService.isI18nKey(firstError)) {
+  if (!errors?.length) {
     return CommonException.ValidationException(
-      TranslateService.t(firstError as Path<I18nTranslations>),
-      TranslateService.code(firstError as Path<I18nTranslations>),
+      'Validation failed',
+      'BAD_REQUEST',
     );
   }
 
-  return CommonException.ValidationException(firstError, 'BAD_REQUEST');
+  const formattedErrors = errors.map((err) => {
+    const messages = Object.values(err.constraints ?? {});
+
+    const contextParams: any[] = Object.values(err.contexts ?? {})
+      .map((ctx: any) => ctx?.params ?? [])
+      .flat();
+
+    return {
+      field: err.property,
+      errors: messages,
+      params: contextParams,
+    };
+  });
+
+  const firstError = formattedErrors.shift();
+  const firstMessage = firstError?.errors?.pop();
+  const params = firstError?.params.pop();
+
+  if (firstMessage && TranslateService.isI18nKey(firstMessage)) {
+    const key = firstMessage as Path<I18nTranslations>;
+    return CommonException.ValidationException(
+      TranslateService.t(key, params),
+      TranslateService.code(key),
+    );
+  }
+
+  return CommonException.ValidationException(
+    firstMessage ?? 'Validation failed',
+    'BAD_REQUEST',
+  );
 }
 
 async function bootstrap() {
@@ -96,11 +119,9 @@ async function bootstrap() {
   SwaggerSetupModule.setup(app);
 
   // Start app
-  logger.log('🚀 Starting application...');
+  logger.log('Starting application...');
   await app.listen(port);
-  logger.log(
-    `✅ Application is running on: http://localhost:${port}/${prefix}`,
-  );
+  logger.log(`Application is running on: http://localhost:${port}/${prefix}`);
 }
 
 bootstrap();

@@ -1,22 +1,26 @@
 ﻿// migration-runner.ts
-import { LoggerService } from '@core/services/logger';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from '@src/app.module';
+import { ConfigEnvironmentService } from '@src/configs';
 import { connectionSource } from '@src/configs/typeorm.config';
 import * as fs from 'fs';
 import * as path from 'path';
+import pino from 'pino';
 
 const migrationOrder = ['sequences', 'scripts', 'functions', 'alter', 'seed'];
 
-async function runMigrations() {
-  // 👉 Khởi tạo NestJS context để inject service
-  const appContext = await NestFactory.createApplicationContext(AppModule, {
-    logger: false, // disable default Nest logger
-  });
+// ✅ Tạo logger Pino độc lập (không cần Nest context)
+const logger = pino({
+  level: 'info',
+  transport: ConfigEnvironmentService.isProduction()
+    ? undefined
+    : { target: 'pino-pretty', options: { colorize: true } },
+});
 
-  const logger = appContext.get(LoggerService);
+async function runMigrations() {
+  logger.info('Migration script started');
 
   await connectionSource.initialize();
+  logger.info('Database connected');
+
   const queryRunner = connectionSource.createQueryRunner();
 
   await queryRunner.query(`
@@ -31,7 +35,7 @@ async function runMigrations() {
     for (const folder of migrationOrder) {
       const folderPath = path.join(process.cwd(), 'src', 'migrations', folder);
       if (!fs.existsSync(folderPath)) {
-        logger.warn(`❌ Folder not found: ${folderPath}`);
+        logger.warn(`Folder not found: ${folderPath}`);
         continue;
       }
 
@@ -47,11 +51,11 @@ async function runMigrations() {
         );
 
         if (alreadyRun.length > 0) {
-          logger.warn(`🟡 Skip (already run): ${file}`);
+          logger.warn(`Skip (already run): ${file}`);
           continue;
         }
 
-        logger.log(`🚀 Running: ${file}`);
+        logger.info(`Running: ${file}`);
         let sql = fs.readFileSync(path.join(folderPath, file), 'utf8');
         sql = sql.replace(/^\uFEFF/, '');
 
@@ -63,23 +67,22 @@ async function runMigrations() {
             [file],
           );
           await queryRunner.commitTransaction();
-          logger.log(`✅ Done: ${file}`);
+          logger.info(`Done: ${file}`);
         } catch (err) {
           await queryRunner.rollbackTransaction();
-          logger.error(`❌ Error in file ${file}, rolled back changes.`, err);
+          logger.error({ err }, `Error in file ${file}, rolled back changes`);
           throw err;
         }
       }
     }
 
-    logger.log('✅ All migrations executed.');
+    logger.info('All migrations executed.');
   } catch (err) {
-    logger.error('❌ Migration failed', err);
+    logger.error({ err }, 'Migration failed');
     process.exit(1);
   } finally {
     await queryRunner.release();
     await connectionSource.destroy();
-    await appContext.close();
   }
 }
 

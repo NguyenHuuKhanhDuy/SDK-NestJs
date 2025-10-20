@@ -1,12 +1,26 @@
-﻿import { Public } from '@core/decorator';
-import { TranslateService } from '@core/services/i18n/i18n.service';
+﻿import { Provider } from '@common/enum';
+import { Public } from '@core/decorator';
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { CryptoJsHelper } from '@src/common/helper';
 import { BaseController } from '@src/common/models';
 
-import { LoginCommand, LoginRequest, LogoutCommand } from './commands';
+import {
+  ChangePasswordCommand,
+  ChangePasswordRequest,
+  ForgotPasswordCommand,
+  ForgotPasswordRequest,
+  LoginCommand,
+  LoginRequest,
+  LogoutCommand,
+  RegisterCommand,
+  RegisterRequest,
+  ResetPasswordCommand,
+  ResetPasswordRequest,
+  VerifyEmailCommand,
+  VerifyEmailRequest,
+} from './commands';
 
 @Controller({ path: 'auth' })
 @ApiTags('Authentication')
@@ -22,16 +36,49 @@ export class AuthController extends BaseController {
     return this.successResponse(response);
   }
 
+  @Public()
+  @Post('register')
+  async register(@Body() body: RegisterRequest) {
+    await this.command.execute(new RegisterCommand(body, Provider.Manual));
+    return this.successResponse(null);
+  }
+
+  @Public()
+  @Post('verify-email')
+  async verifyEmail(@Body() body: VerifyEmailRequest) {
+    await this.command.execute(new VerifyEmailCommand(body));
+    return this.successResponse(null);
+  }
+
+  @Public()
+  @Post('forgot-password')
+  async forgotPassword(@Body() body: ForgotPasswordRequest) {
+    await this.command.execute(new ForgotPasswordCommand(body));
+    return this.successResponse(null);
+  }
+
+  @Public()
+  @Post('reset-password')
+  async resetPassword(@Body() body: ResetPasswordRequest) {
+    await this.command.execute(new ResetPasswordCommand(body));
+    return this.successResponse(null);
+  }
+
   @Post('logout')
   async logout() {
     await this.command.execute(new LogoutCommand());
     return this.successResponse(null);
   }
 
+  @Post('change-password')
+  async changePassword(@Body() body: ChangePasswordRequest) {
+    await this.command.execute(new ChangePasswordCommand(body));
+    return this.successResponse(null);
+  }
+
   @Public()
   @Post('encrypt')
   encrypt(@Body('text') text: string) {
-    TranslateService.t('system.EXH.EXH_ERR_001');
     return CryptoJsHelper.encrypt(text);
   }
 

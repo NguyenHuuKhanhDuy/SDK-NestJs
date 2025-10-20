@@ -1,5 +1,6 @@
 ﻿import { Columns, Keys, Schemas, Tables } from '@common/constant';
 import { NotificationActionData } from '@core/services/communication/dtos/send-notification.dto';
+import { User } from '@src/infrastructure/entities/auth/user.entity';
 import {
   Column,
   Entity,
@@ -93,4 +94,11 @@ export class Notification extends AuditTableEntity {
     foreignKeyConstraintName: Keys.Notification.ForeignKey.NotificationTemplate,
   })
   notificationTemplate: NotificationTemplate;
+
+  @ManyToOne(() => User, (user) => user.notifications)
+  @JoinColumn({
+    name: Columns.Notification.UserId,
+    foreignKeyConstraintName: Keys.Notification.ForeignKey.User,
+  })
+  user: User;
 }

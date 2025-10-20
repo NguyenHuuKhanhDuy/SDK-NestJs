@@ -3,6 +3,11 @@
     Port: 'APP_PORT',
     CorsAllowedOrigins: 'CORS_ALLOWED_ORIGINS',
     NodeEnv: 'NODE_ENV',
+    ClientSecretKey: 'CLIENT_SECRET_KEY',
+    PrimaryColor: 'PRIMARY_COLOR',
+    CompanyName: 'COMPANY_NAME',
+    BaseUri: 'BASE_URI',
+    LogoUrl: 'LOGO_URL',
   },
   Database: {
     Host: 'DB_HOST',

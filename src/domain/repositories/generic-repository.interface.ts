@@ -17,6 +17,10 @@ export interface IGenericRepository<Entity extends ObjectLiteral> {
 
   findOne(options: FindOneOptions<Entity>): Promise<Entity | null>;
 
+  existsBy(
+    where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[],
+  ): Promise<boolean>;
+
   findBy(where: FindOptionsWhere<Entity>): Promise<Entity[]>;
 
   findOneBy(where: FindOptionsWhere<Entity>): Promise<Entity | null>;

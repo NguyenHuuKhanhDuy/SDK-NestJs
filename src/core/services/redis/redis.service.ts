@@ -23,7 +23,7 @@ export class RedisService {
       userId,
       sessionId,
     );
-    await this.redis.set(key, JSON.stringify(sessionData), ttlSeconds);
+    await this.redis.set(key, sessionData, ttlSeconds);
   }
 
   /**
@@ -48,8 +48,7 @@ export class RedisService {
       userId,
       sessionId,
     );
-    const data = await this.redis.get(key);
-    return data ? JSON.parse(data) : null;
+    return await this.redis.get<string>(key);
   }
 
   /**

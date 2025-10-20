@@ -14,5 +14,49 @@
     "LGI_ERR_001": "User not found",
     "LGI_ERR_002": "Login failed, please check your username and password",
     "LGI_ERR_003": "Account is locked, please contact support"
+  },
+  "REG": {
+    "REG_ERR_001": "Email is required",
+    "REG_ERR_002": "Password is required",
+    "REG_ERR_003": "First name is required",
+    "REG_ERR_004": "Last name is required",
+    "REG_ERR_005": "Country is required",
+    "REG_ERR_006": "Incorrect email format, make sure you entered correctly",
+    "REG_ERR_007": "The first name must be less than {max} characters",
+    "REG_ERR_008": "The last name must be less than {max} characters",
+    "REG_ERR_009": "The email must be less than {max} characters",
+    "REG_ERR_010": "Invalid password",
+    "REG_ERR_011": "Password must be between {min} and {max} characters long, a combination of uppercase letters, lowercase letters, numbers, and without any white space.",
+    "REG_ERR_012": "Invalid country",
+    "REG_ERR_013": "Email address is already registered"
+  },
+  "VRE": {
+    "VRE_ERR_001": "Your email is already verified",
+    "VRE_ERR_002": "Trading account not found",
+    "VRE_ERR_003": "ConfirmEmailToken incorrect or expired",
+    "VRE_ERR_004": "The Token field is required",
+    "VRE_ERR_005": "User not found"
+  },
+  "CHP": {
+    "CHP_ERR_001": "Current password is incorrect",
+    "CHP_ERR_002": "New password must be different from the current password",
+    "CHP_ERR_003": "New password is required",
+    "CHP_ERR_004": "Old password is required",
+    "CHP_ERR_005": "New password must be between {min} and {max} characters long, a combination of uppercase letters, lowercase letters, numbers, and without any white space.",
+    "CHP_ERR_006": "Invalid new password",
+    "CHP_ERR_007": "Invalid old password",
+    "CHP_ERR_008": "User not found"
+  },
+  "FGP": {
+    "FGP_ERR_001": "Email is required",
+    "FGP_ERR_002": "Email not found",
+    "FGP_ERR_003": "Invalid email format, make sure you entered correctly",
+    "FGP_ERR_004": "ResetPasswordToken incorrect or expired",
+    "FGP_ERR_005": "New password is required",
+    "FGP_ERR_006": "New password must be between {min} and {max} characters long, a combination of uppercase letters, lowercase letters, numbers, and without any white space.",
+    "FGP_ERR_007": "User not found",
+    "FGP_ERR_008": "The email must be less than {max} characters",
+    "FGP_ERR_009": "Email not confirmed",
+    "FGP_ERR_010": "Invalid new password"
   }
 }

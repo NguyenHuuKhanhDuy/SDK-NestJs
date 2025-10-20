@@ -1,4 +1,4 @@
-﻿import { CommonConstant } from '@common/constant';
+﻿import { RoleType } from '@common/enum';
 import { CommonException } from '@common/exceptions';
 import { LoggerService } from '@core/services/logger';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
@@ -29,7 +29,7 @@ export class GetRoleDetailHandler
       },
       where: {
         id: roleId,
-        name: Not(CommonConstant.RoleNameDefault),
+        type: Not(RoleType.SuperAdmin),
       },
       select: {
         id: true,

@@ -1,11 +1,12 @@
-﻿import { ConfigEnvironmentService } from '@src/configs/config-environment.base.service';
+﻿import { EnvKey } from '@common/constant';
+import { ConfigEnvironmentService } from '@src/configs/config-environment.base.service';
 import * as CryptoJS from 'crypto-js';
 
 const CRYPTO_KEY_SIZE = 128 / 8;
 
 export class CryptoJsHelper {
   private static readonly CLIENT_SECRET_KEY =
-    ConfigEnvironmentService.getIns().get('CLIENT_SECRET_KEY') ?? '';
+    ConfigEnvironmentService.getIns().get(EnvKey.App.ClientSecretKey) ?? '';
   private static readonly SECRET_KEY_REVERSE =
     CryptoJsHelper.CLIENT_SECRET_KEY.split('').reverse().join('');
 

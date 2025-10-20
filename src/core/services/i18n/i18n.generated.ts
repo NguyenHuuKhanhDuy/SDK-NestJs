@@ -22,6 +22,50 @@ export type I18nTranslations = {
             "LGI_ERR_002": string;
             "LGI_ERR_003": string;
         };
+        "REG": {
+            "REG_ERR_001": string;
+            "REG_ERR_002": string;
+            "REG_ERR_003": string;
+            "REG_ERR_004": string;
+            "REG_ERR_005": string;
+            "REG_ERR_006": string;
+            "REG_ERR_007": string;
+            "REG_ERR_008": string;
+            "REG_ERR_009": string;
+            "REG_ERR_010": string;
+            "REG_ERR_011": string;
+            "REG_ERR_012": string;
+            "REG_ERR_013": string;
+        };
+        "VRE": {
+            "VRE_ERR_001": string;
+            "VRE_ERR_002": string;
+            "VRE_ERR_003": string;
+            "VRE_ERR_004": string;
+            "VRE_ERR_005": string;
+        };
+        "CHP": {
+            "CHP_ERR_001": string;
+            "CHP_ERR_002": string;
+            "CHP_ERR_003": string;
+            "CHP_ERR_004": string;
+            "CHP_ERR_005": string;
+            "CHP_ERR_006": string;
+            "CHP_ERR_007": string;
+            "CHP_ERR_008": string;
+        };
+        "FGP": {
+            "FGP_ERR_001": string;
+            "FGP_ERR_002": string;
+            "FGP_ERR_003": string;
+            "FGP_ERR_004": string;
+            "FGP_ERR_005": string;
+            "FGP_ERR_006": string;
+            "FGP_ERR_007": string;
+            "FGP_ERR_008": string;
+            "FGP_ERR_009": string;
+            "FGP_ERR_010": string;
+        };
     };
     "system": {
         "EXH": {

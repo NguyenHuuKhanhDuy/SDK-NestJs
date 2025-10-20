@@ -3,25 +3,28 @@ import * as moment from 'moment';
 
 export class TimeHelper {
   /**
-   * Lấy thời gian hiện tại (UTC hoặc local)
+   * Get the current time (UTC)
    */
   static nowUtc(): Date {
     return moment.utc().toDate();
   }
 
+  /**
+   * Get the current time (Local)
+   */
   static nowLocal(): Date {
     return moment().toDate();
   }
 
   /**
-   * Format Date thành string
+   * Format a Date object into a string
    */
   static format(date: Date, format = 'YYYY-MM-DD HH:mm:ss'): string {
     return moment(date).format(format);
   }
 
   /**
-   * Cộng thêm thời gian
+   * Add a specific amount of time to a date
    */
   static add(
     date: Date,
@@ -32,7 +35,7 @@ export class TimeHelper {
   }
 
   /**
-   * Trừ thời gian
+   * Subtract a specific amount of time from a date
    */
   static subtract(
     date: Date,
@@ -43,14 +46,15 @@ export class TimeHelper {
   }
 
   /**
-   * Kiểm tra một date có hết hạn chưa
+   * Check whether a date has expired
    */
   static isExpired(date: Date): boolean {
     return moment(date).isBefore(moment());
   }
 
   /**
-   * So sánh 2 Date
+   * Compare two Date objects
+   * @returns -1 if date1 < date2, 1 if date1 > date2, 0 if equal
    */
   static compare(date1: Date, date2: Date): number {
     if (moment(date1).isBefore(date2)) {
@@ -63,7 +67,7 @@ export class TimeHelper {
   }
 
   /**
-   * Lấy số ngày giữa 2 thời điểm
+   * Get the number of days between two dates
    */
   static diffInDays(date1: Date, date2: Date): number {
     return moment(date1).diff(moment(date2), 'days');

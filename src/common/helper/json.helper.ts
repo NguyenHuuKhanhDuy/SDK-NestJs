@@ -8,12 +8,15 @@ export class JsonHelper {
    * @param classType The class to transform into
    * @returns An instance of the provided class type
    */
-  static deserialize<T>(classType: new () => T, jsonString: string): T {
+  static deserialize<T>(
+    classType: new (...args: any[]) => T,
+    jsonString: string,
+  ): T {
     try {
       const plainObject = JSON.parse(jsonString);
       return plainToInstance(classType, plainObject);
     } catch (error) {
-      throw new Error(`Invalid JSON format: ${error.message}`);
+      throw new Error(`Invalid JSON format: ${(error as Error).message}`);
     }
   }
 

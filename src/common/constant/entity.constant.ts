@@ -15,6 +15,7 @@ export const Tables = {
   Notification: 'notification',
   NotificationSetting: 'notification_setting',
   NotificationTemplate: 'notification_template',
+  Country: 'country',
 };
 
 export const Columns = {
@@ -39,6 +40,7 @@ export const Columns = {
     IsSystemUser: 'is_system_user',
     IsConfirmed: 'is_confirmed',
     Provider: 'provider',
+    CountryId: 'country_id',
   },
   Department: {
     Name: 'name',
@@ -106,6 +108,14 @@ export const Columns = {
     Content: 'content',
     IsLatestVersion: 'is_latest_version',
   },
+  Country: {
+    Name: 'name',
+    Code: 'code',
+    DialCode: 'dial_code',
+    FlagUrl: 'flag_url',
+    Alpha2Code: 'alpha2_code',
+    Alpha3Code: 'alpha3_code',
+  },
 };
 
 export const Keys = {
@@ -113,6 +123,7 @@ export const Keys = {
     Primary: 'pk_user',
     ForeignKey: {
       Department: 'fk_user__department',
+      Country: 'fk_user__country',
     },
   },
   Department: {
@@ -155,7 +166,7 @@ export const Keys = {
     Primary: 'pk_notification',
     ForeignKey: {
       NotificationTemplate: 'fk_notification__notification_template',
-      Recipient: 'fk_notification__user',
+      User: 'fk_notification__user',
     },
   },
   NotificationSetting: {
@@ -166,5 +177,8 @@ export const Keys = {
     ForeignKey: {
       NotificationSetting: 'fk_notification_template__notification_setting',
     },
+  },
+  Country: {
+    Primary: 'pk_country',
   },
 };

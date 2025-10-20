@@ -1,3 +1,4 @@
+import { NODE_ENV } from '@common/enum';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { APP_CONFIG } from '@src/app.config';
@@ -43,6 +44,6 @@ export class ConfigEnvironmentService {
   }
 
   static isProduction() {
-    return this.getIns().get('NODE_ENV') === 'production';
+    return this.getIns().get('NODE_ENV') === NODE_ENV.PRODUCTION;
   }
 }

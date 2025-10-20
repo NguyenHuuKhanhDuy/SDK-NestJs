@@ -4,6 +4,7 @@ import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
+import { IntegrationsModule } from '@src/integrations/integrations.module';
 import { FeatureModule } from '@src/modules/feature.module';
 
 @Module({
@@ -17,6 +18,7 @@ import { FeatureModule } from '@src/modules/feature.module';
     CoreModule,
     InfrastructureModule,
     FeatureModule,
+    IntegrationsModule,
   ],
 })
 export class AppModule {}

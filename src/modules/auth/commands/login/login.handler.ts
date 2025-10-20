@@ -1,6 +1,5 @@
 ﻿import { JwtTokenService } from '@core/services/jwt';
 import { LoggerService } from '@core/services/logger';
-import { QueueUnitOfWork } from '@core/services/queue';
 import { RedisService } from '@core/services/redis';
 import { UnitOfWork } from '@infrastructure/repositories/unit-of-work';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
@@ -21,7 +20,6 @@ export class LoginHandler
     private readonly jwtService: JwtTokenService,
     private readonly uow: UnitOfWork,
     private readonly redis: RedisService,
-    private readonly queue: QueueUnitOfWork,
   ) {}
 
   async execute(command: LoginCommand): Promise<LoginResponse> {
@@ -83,7 +81,7 @@ export class LoginHandler
     await this.redis.createSession(
       user.id,
       sessionId,
-      '',
+      sessionId,
       CommonConstant.TokenExpires,
     );
 

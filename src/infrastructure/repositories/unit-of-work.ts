@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@nestjs/common';
 import {
+  Country,
   Department,
   Menu,
   Notification,
@@ -13,6 +14,7 @@ import {
   UserRole,
 } from '@src/infrastructure/entities';
 import {
+  CountryRepository,
   DepartmentRepository,
   MenuRepository,
   NotificationRepository,
@@ -40,6 +42,7 @@ export class UnitOfWork {
   public readonly notifications: NotificationRepository;
   public readonly notificationSettings: NotificationSettingRepository;
   public readonly notificationTemplates: NotificationTemplateRepository;
+  public readonly countries: CountryRepository;
 
   constructor(
     private readonly dataSource: DataSource,
@@ -68,6 +71,7 @@ export class UnitOfWork {
     this.notificationTemplates = new NotificationTemplateRepository(
       em.getRepository(NotificationTemplate),
     );
+    this.countries = new CountryRepository(em.getRepository(Country));
   }
 
   async withTransaction<T>(
