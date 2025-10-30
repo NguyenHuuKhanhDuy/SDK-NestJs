@@ -82,4 +82,9 @@ export class UnitOfWork {
       return work(txUow);
     });
   }
+
+  async executeSql<T = any>(query: string, parameters?: any[]): Promise<T[]> {
+    const em = this.manager ?? this.dataSource.manager;
+    return await em.query(query, parameters);
+  }
 }

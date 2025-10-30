@@ -5,7 +5,7 @@
   lastName: string;
   roles: string[];
   permissions: string[];
-  isSystemUser: boolean;
+  isSuperAdmin: boolean;
   sessionId: string;
   iat?: number;
   exp?: number;

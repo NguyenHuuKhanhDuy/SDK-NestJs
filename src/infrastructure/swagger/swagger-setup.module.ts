@@ -1,8 +1,5 @@
-﻿import { BoAuthorizeModule } from '@internal/authorize/bo-authorize.module';
-import { BoMenuModule } from '@internal/menu/bo-menu.module';
-import { BoUserModule } from '@internal/user/bo-user.module';
+﻿import { UserModule } from '@internal/user/user.module';
 import { AuthModule } from '@modules/auth/auth.module';
-import { UserModule } from '@modules/user/user.module';
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -23,8 +20,8 @@ export class SwaggerSetupModule {
       .build();
 
     const authenticationModules = [AuthModule];
-    const internalModules = [BoAuthorizeModule, BoUserModule, BoMenuModule];
-    const clientModules = [UserModule];
+    const internalModules = [UserModule];
+    const clientModules = [];
 
     // NOTE:: Setup main API Swagger UI with dropdown support
     const apiOptions = [

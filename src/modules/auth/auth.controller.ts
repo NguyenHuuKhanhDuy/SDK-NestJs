@@ -1,4 +1,4 @@
-﻿import { Provider } from '@common/enum';
+﻿import { Provider, Site } from '@common/enum';
 import { Public } from '@core/decorator';
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
@@ -32,7 +32,18 @@ export class AuthController extends BaseController {
   @Public()
   @Post('login')
   async login(@Body() body: LoginRequest) {
-    const response = await this.command.execute(new LoginCommand(body));
+    const response = await this.command.execute(
+      new LoginCommand(body, Site.User),
+    );
+    return this.successResponse(response);
+  }
+
+  @Public()
+  @Post('admin/login')
+  async adminLogin(@Body() body: LoginRequest) {
+    const response = await this.command.execute(
+      new LoginCommand(body, Site.Admin),
+    );
     return this.successResponse(response);
   }
 

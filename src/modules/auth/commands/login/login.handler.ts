@@ -1,4 +1,5 @@
-﻿import { JwtTokenService } from '@core/services/jwt';
+﻿import { RoleType, Site } from '@common/enum';
+import { JwtTokenService } from '@core/services/jwt';
 import { LoggerService } from '@core/services/logger';
 import { RedisService } from '@core/services/redis';
 import { UnitOfWork } from '@infrastructure/repositories/unit-of-work';
@@ -27,12 +28,15 @@ export class LoginHandler
     const functionName = `${LoginHandler.name} =>`;
     const response = new LoginResponse();
     this.logger.log(functionName);
+    const isSystemUser = command.site === Site.Admin;
     const user = await this.uow.users.findOne({
       relations: {
         permissions: true,
-        roles: true,
+        roles: {
+          role: true,
+        },
       },
-      where: { email: payload.email },
+      where: { email: payload.email, isSystemUser: isSystemUser },
       select: {
         id: true,
         status: true,
@@ -41,6 +45,13 @@ export class LoginHandler
         isSystemUser: true,
         firstName: true,
         lastName: true,
+        roles: {
+          roleId: true,
+          role: {
+            id: true,
+            type: true,
+          },
+        },
       },
     });
     if (!user) {
@@ -73,7 +84,9 @@ export class LoginHandler
       permissions: user.permissions.map(
         (permission) => permission.permissionId,
       ),
-      isSystemUser: user.isSystemUser,
+      isSuperAdmin: !!user.roles.find(
+        (x) => x.role.type === RoleType.SuperAdmin,
+      ),
       sessionId: sessionId,
     };
 

@@ -5,10 +5,11 @@ import { SelectQueryBuilder } from 'typeorm';
 export class QueryHelper {
   static async toListAsPageAsync<T>(
     query: SelectQueryBuilder<any>,
-    pageNumber: number,
-    maxPerPage: number,
+    paginationQuery: PaginationQuery,
   ): Promise<PagingDataDto<T>> {
     const result = new PagingDataDto<T>();
+    const pageNumber = Number(paginationQuery.pageNumber);
+    const maxPerPage = Number(paginationQuery.maxPerPage);
     const pagingResponse: PagingDto = {
       maxPerPage,
       pageNumber,
@@ -64,8 +65,8 @@ export class QueryHelper {
     totalItem: number,
   ): Pagination {
     const paging = {
-      maxPerPage: queryDto.maxPerPage,
-      pageNumber: queryDto.pageNumber,
+      maxPerPage: Number(queryDto.maxPerPage),
+      pageNumber: Number(queryDto.pageNumber),
       totalItem: 0,
       totalPage: 0,
     };

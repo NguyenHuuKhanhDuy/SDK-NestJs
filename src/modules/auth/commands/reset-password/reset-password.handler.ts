@@ -77,8 +77,7 @@ export class ResetPasswordHandler
 
     try {
       this.jwtService.verify(forgotPasswordDto.token);
-      // eslint-disable-next-line unused-imports/no-unused-vars
-    } catch (error) {
+    } catch {
       this.logger.error(`${functionName} token invalid or expired`);
       throw CommonException.BadRequest('business.FGP.FGP_ERR_004');
     }

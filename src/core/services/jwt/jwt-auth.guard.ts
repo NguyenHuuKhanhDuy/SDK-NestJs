@@ -51,7 +51,7 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     request.user = user;
-    if (user.isSystemUser) {
+    if (user.isSuperAdmin) {
       return true;
     }
 
