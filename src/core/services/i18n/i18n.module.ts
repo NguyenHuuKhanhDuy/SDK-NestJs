@@ -1,6 +1,7 @@
 ﻿import * as process from 'node:process';
 
 import { EnvKey } from '@common/constant';
+import { AppPathHelper } from '@common/helper';
 import { TranslateService } from '@core/services/i18n/i18n.service';
 import { Module } from '@nestjs/common';
 import { NODE_ENV } from '@src/common/enum/common.enum';
@@ -17,7 +18,7 @@ const isLocal =
     I18nModuleImport.forRoot({
       fallbackLanguage: 'en-US',
       loaderOptions: {
-        path: path.join(__dirname, '/'),
+        path: AppPathHelper.i18nDir,
         watch: true,
       },
       typesOutputPath: isLocal

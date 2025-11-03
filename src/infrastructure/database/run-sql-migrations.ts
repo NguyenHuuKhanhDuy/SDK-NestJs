@@ -1,4 +1,5 @@
 ﻿// migration-runner.ts
+import { AppPathHelper } from '@common/helper';
 import { ConfigEnvironmentService } from '@src/configs';
 import { connectionSource } from '@src/configs/typeorm.config';
 import * as fs from 'fs';
@@ -33,7 +34,7 @@ async function runMigrations() {
 
   try {
     for (const folder of migrationOrder) {
-      const folderPath = path.join(process.cwd(), 'src', 'migrations', folder);
+      const folderPath = path.join(AppPathHelper.migrationsDir, folder);
       if (!fs.existsSync(folderPath)) {
         logger.warn(`Folder not found: ${folderPath}`);
         continue;
