@@ -88,6 +88,7 @@ export class LoginHandler
         (x) => x.role.type === RoleType.SuperAdmin,
       ),
       sessionId: sessionId,
+      test: 'Duy Nguyen',
     };
 
     // Store session in Redis
