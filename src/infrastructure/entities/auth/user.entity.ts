@@ -58,7 +58,7 @@ export class User extends AuditTableEntity {
     name: Columns.User.Username,
     unique: true,
     type: 'varchar',
-    length: 15,
+    length: 50,
     nullable: false,
   })
   username: string;
