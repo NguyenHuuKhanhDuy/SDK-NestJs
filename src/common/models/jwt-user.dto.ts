@@ -9,5 +9,4 @@
   sessionId: string;
   iat?: number;
   exp?: number;
-  test?: string;
 }
