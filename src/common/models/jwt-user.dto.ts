@@ -3,7 +3,7 @@
   email: string;
   firstName: string;
   lastName: string;
-  roles: string[];
+  roleId: number;
   permissions: string[];
   isSuperAdmin: boolean;
   sessionId: string;

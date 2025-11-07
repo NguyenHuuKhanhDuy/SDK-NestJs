@@ -21,6 +21,7 @@ export type I18nTranslations = {
             "LGI_ERR_001": string;
             "LGI_ERR_002": string;
             "LGI_ERR_003": string;
+            "LGI_ERR_004": string;
         };
         "REG": {
             "REG_ERR_001": string;
@@ -65,6 +66,30 @@ export type I18nTranslations = {
             "FGP_ERR_008": string;
             "FGP_ERR_009": string;
             "FGP_ERR_010": string;
+        };
+        "PRF": {
+            "PRF_ERR_001": string;
+        };
+    };
+    "internal": {
+        "USER": {
+            "USER_ERR_001": string;
+            "USER_ERR_002": string;
+            "USER_ERR_003": string;
+            "USER_ERR_004": string;
+            "USER_ERR_005": string;
+            "USER_ERR_006": string;
+            "USER_ERR_007": string;
+            "USER_ERR_008": string;
+            "USER_ERR_009": string;
+            "USER_ERR_010": string;
+            "USER_ERR_011": string;
+            "USER_ERR_012": string;
+            "USER_ERR_013": string;
+            "USER_ERR_014": string;
+            "USER_ERR_015": string;
+            "USER_ERR_016": string;
+            "USER_ERR_017": string;
         };
     };
     "system": {

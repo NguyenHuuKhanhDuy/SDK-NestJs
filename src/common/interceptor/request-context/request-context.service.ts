@@ -25,6 +25,6 @@ export class RequestContextService {
 
   static getCurrentUserFullName(): string | null {
     const user = this.asyncLocalStorage.getStore()['user'];
-    return StringHelper.format('{0} {1}', user.firstName, user.lastName).trim();
+    return StringHelper.toFullName(user.firstName, user.lastName).trim();
   }
 }

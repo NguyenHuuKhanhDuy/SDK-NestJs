@@ -19,8 +19,8 @@ import {
 } from 'typeorm';
 
 import { Department } from './department.entity';
+import { Role } from './role.entity';
 import { UserPermission } from './user-permisstion.entity';
-import { UserRole } from './user-role.entity';
 
 @Entity({ name: Tables.User, schema: Schemas.Ecommerce })
 export class User extends AuditTableEntity {
@@ -104,6 +104,13 @@ export class User extends AuditTableEntity {
   })
   countryId: number;
 
+  @Column({
+    name: Columns.User.RoleId,
+    type: 'int',
+    nullable: true,
+  })
+  roleId: number;
+
   @ManyToOne(() => Department, (department) => department.users, {
     nullable: true,
   })
@@ -112,9 +119,6 @@ export class User extends AuditTableEntity {
     foreignKeyConstraintName: Keys.User.ForeignKey.Department,
   })
   department: Department;
-
-  @OneToMany(() => UserRole, (ur) => ur.user)
-  roles: UserRole[];
 
   @OneToMany(() => UserPermission, (up) => up.user)
   permissions: UserPermission[];
@@ -128,4 +132,15 @@ export class User extends AuditTableEntity {
 
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications: Notification[];
+
+  @ManyToOne(() => Role, (role) => role.users, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+    onDelete: 'RESTRICT',
+  })
+  @JoinColumn({
+    name: Columns.User.RoleId,
+    foreignKeyConstraintName: Keys.User.ForeignKey.Role,
+  })
+  role: Role;
 }

@@ -89,8 +89,7 @@ export class ChangePasswordHandler
     // 7️⃣ Update password and invalidate sessions
     await this.uow.users.update(userId, {
       password: newPasswordHash,
-      updatedBy: StringHelper.format(
-        '{0} {1}',
+      updatedBy: StringHelper.toFullName(
         userContext.firstName,
         userContext.lastName,
       ),

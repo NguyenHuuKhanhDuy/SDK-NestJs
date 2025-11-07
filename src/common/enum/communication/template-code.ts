@@ -1,6 +1,7 @@
 ﻿export enum TemplateCode {
   E000001,
   E000002,
+  E000003,
   N000001,
 }
 

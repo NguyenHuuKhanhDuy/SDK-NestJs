@@ -41,6 +41,7 @@ export const Columns = {
     IsConfirmed: 'is_confirmed',
     Provider: 'provider',
     CountryId: 'country_id',
+    RoleId: 'role_id',
   },
   Department: {
     Name: 'name',
@@ -124,6 +125,7 @@ export const Keys = {
     ForeignKey: {
       Department: 'fk_user__department',
       Country: 'fk_user__country',
+      Role: 'fk_user__role',
     },
   },
   Department: {

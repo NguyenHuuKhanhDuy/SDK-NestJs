@@ -67,7 +67,7 @@ export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {
     await this.uow.users.update(user.id, {
       isConfirmed: true,
       updatedAt: TimeHelper.nowUtc(),
-      updatedBy: StringHelper.format('{0} {1}', user.firstName, user.lastName),
+      updatedBy: StringHelper.toFullName(user.firstName, user.lastName),
     });
   }
 }

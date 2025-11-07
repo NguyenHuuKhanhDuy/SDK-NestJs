@@ -1,0 +1,21 @@
+{
+  "USER": {
+    "USER_ERR_001": "User not found",
+    "USER_ERR_002": "First name is required",
+    "USER_ERR_003": "Last name is required",
+    "USER_ERR_004": "Country is required",
+    "USER_ERR_005": "Incorrect email format, make sure you entered correctly",
+    "USER_ERR_006": "The first name must be less than {max} characters",
+    "USER_ERR_007": "The last name must be less than {max} characters",
+    "USER_ERR_008": "The email must be less than {max} characters",
+    "USER_ERR_009": "Invalid password",
+    "USER_ERR_010": "Password must be between {min} and {max} characters long, a combination of uppercase letters, lowercase letters, numbers, and without any white space.",
+    "USER_ERR_011": "Invalid country",
+    "USER_ERR_012": "Email address is already registered",
+    "USER_ERR_013": "Email is required",
+    "USER_ERR_014": "Password is required",
+    "USER_ERR_015": "Role is required",
+    "USER_ERR_016": "InviteLink incorrect or expired",
+    "USER_ERR_017": "Email is already accepted"
+  }
+}

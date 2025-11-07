@@ -1,7 +1,12 @@
-﻿import { UserModule } from '@internal/user/user.module';
-import { AuthModule } from '@modules/auth/auth.module';
-import { INestApplication } from '@nestjs/common';
+﻿import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {
+  AuthModule,
+  CountryModule,
+  HealthModule,
+  UserModule,
+} from '@src/modules';
+import * as I from '@src/modules/internal';
 
 import {
   SWAGGER_API_ROOT,
@@ -20,8 +25,8 @@ export class SwaggerSetupModule {
       .build();
 
     const authenticationModules = [AuthModule];
-    const internalModules = [UserModule];
-    const clientModules = [];
+    const internalModules = [I.UserModule];
+    const clientModules = [UserModule, CountryModule, HealthModule];
 
     // NOTE:: Setup main API Swagger UI with dropdown support
     const apiOptions = [

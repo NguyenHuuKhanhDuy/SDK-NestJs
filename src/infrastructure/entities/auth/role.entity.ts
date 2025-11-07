@@ -1,5 +1,5 @@
 ﻿import { RoleType } from '@common/enum';
-import { RolePermission, UserRole } from '@infrastructure/entities';
+import { RolePermission, User } from '@infrastructure/entities';
 import { AuditTableEntity } from '@infrastructure/entities/audit-table-entity';
 import {
   Columns,
@@ -36,9 +36,9 @@ export class Role extends AuditTableEntity {
   @Column({ name: Columns.Role.Type, type: 'int', nullable: false })
   type: RoleType;
 
-  @OneToMany(() => UserRole, (ur) => ur.role)
-  users: UserRole[];
-
   @OneToMany(() => RolePermission, (rp) => rp.role)
   permissions: RolePermission[];
+
+  @OneToMany(() => User, (user) => user.role)
+  users: User[];
 }

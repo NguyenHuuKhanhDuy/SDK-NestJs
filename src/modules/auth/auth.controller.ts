@@ -1,19 +1,18 @@
 ﻿import { Provider, Site } from '@common/enum';
 import { Public } from '@core/decorator';
 import { Body, Controller, Post } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { CryptoJsHelper } from '@src/common/helper';
 import { BaseController } from '@src/common/models';
 
 import {
-  ChangePasswordCommand,
-  ChangePasswordRequest,
+  AcceptToAdminCommand,
+  AcceptToAdminRequest,
   ForgotPasswordCommand,
   ForgotPasswordRequest,
   LoginCommand,
   LoginRequest,
-  LogoutCommand,
   RegisterCommand,
   RegisterRequest,
   ResetPasswordCommand,
@@ -25,7 +24,10 @@ import {
 @Controller({ path: 'auth' })
 @ApiTags('Authentication')
 export class AuthController extends BaseController {
-  constructor(private readonly command: CommandBus) {
+  constructor(
+    private readonly command: CommandBus,
+    private readonly query: QueryBus,
+  ) {
     super();
   }
 
@@ -62,6 +64,13 @@ export class AuthController extends BaseController {
   }
 
   @Public()
+  @Post('accept-to-admin')
+  async acceptToAdmin(@Body() body: AcceptToAdminRequest) {
+    await this.command.execute(new AcceptToAdminCommand(body));
+    return this.successResponse(null);
+  }
+
+  @Public()
   @Post('forgot-password')
   async forgotPassword(@Body() body: ForgotPasswordRequest) {
     await this.command.execute(new ForgotPasswordCommand(body));
@@ -72,18 +81,6 @@ export class AuthController extends BaseController {
   @Post('reset-password')
   async resetPassword(@Body() body: ResetPasswordRequest) {
     await this.command.execute(new ResetPasswordCommand(body));
-    return this.successResponse(null);
-  }
-
-  @Post('logout')
-  async logout() {
-    await this.command.execute(new LogoutCommand());
-    return this.successResponse(null);
-  }
-
-  @Post('change-password')
-  async changePassword(@Body() body: ChangePasswordRequest) {
-    await this.command.execute(new ChangePasswordCommand(body));
     return this.successResponse(null);
   }
 

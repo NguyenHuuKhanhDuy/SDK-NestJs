@@ -13,7 +13,8 @@
   "LGI": {
     "LGI_ERR_001": "User not found",
     "LGI_ERR_002": "Login failed, please check your username and password",
-    "LGI_ERR_003": "Account is locked, please contact support"
+    "LGI_ERR_003": "Account is locked, please contact support",
+    "LGI_ERR_004": "Email isn't confirmed"
   },
   "REG": {
     "REG_ERR_001": "Email is required",
@@ -58,5 +59,8 @@
     "FGP_ERR_008": "The email must be less than {max} characters",
     "FGP_ERR_009": "Email not confirmed",
     "FGP_ERR_010": "Invalid new password"
+  },
+  "PRF": {
+    "PRF_ERR_001": "User not found"
   }
 }

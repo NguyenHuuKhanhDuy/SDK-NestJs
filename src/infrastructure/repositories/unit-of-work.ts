@@ -11,7 +11,6 @@ import {
   RolePermission,
   User,
   UserPermission,
-  UserRole,
 } from '@src/infrastructure/entities';
 import {
   CountryRepository,
@@ -25,7 +24,6 @@ import {
   RoleRepository,
   UserPermissionRepository,
   UserRepository,
-  UserRoleRepository,
 } from '@src/infrastructure/repositories';
 import { DataSource, EntityManager } from 'typeorm';
 
@@ -37,7 +35,6 @@ export class UnitOfWork {
   public readonly permissions: PermissionRepository;
   public readonly rolePermissions: RolePermissionRepository;
   public readonly userPermissions: UserPermissionRepository;
-  public readonly userRoles: UserRoleRepository;
   public readonly menus: MenuRepository;
   public readonly notifications: NotificationRepository;
   public readonly notificationSettings: NotificationSettingRepository;
@@ -60,7 +57,6 @@ export class UnitOfWork {
     this.userPermissions = new UserPermissionRepository(
       em.getRepository(UserPermission),
     );
-    this.userRoles = new UserRoleRepository(em.getRepository(UserRole));
     this.menus = new MenuRepository(em.getRepository(Menu));
     this.notifications = new NotificationRepository(
       em.getRepository(Notification),

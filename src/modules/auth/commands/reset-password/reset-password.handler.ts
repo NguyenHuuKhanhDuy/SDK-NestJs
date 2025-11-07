@@ -85,7 +85,7 @@ export class ResetPasswordHandler
     const passwordHash = await SecurityHelper.hash(passwordDecrypted);
     await this.uow.users.update(user.id, {
       password: passwordHash,
-      updatedBy: StringHelper.format('{0} {1}', user.firstName, user.lastName),
+      updatedBy: StringHelper.toFullName(user.firstName, user.lastName),
       updatedAt: TimeHelper.nowUtc(),
     });
   }

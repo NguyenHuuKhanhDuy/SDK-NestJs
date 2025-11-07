@@ -49,6 +49,10 @@
     });
   }
 
+  static toFullName(firstName: string, lastName: string): string {
+    return this.format('{0} {1}', firstName, lastName);
+  }
+
   static buildQueryParams(params: Record<string, any>): string {
     const searchParams = new URLSearchParams();
 

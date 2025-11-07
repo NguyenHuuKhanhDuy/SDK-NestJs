@@ -31,10 +31,10 @@ export class LoginHandler
     const isSystemUser = command.site === Site.Admin;
     const user = await this.uow.users.findOne({
       relations: {
-        permissions: true,
-        roles: {
-          role: true,
+        permissions: {
+          permission: true,
         },
+        role: true,
       },
       where: { email: payload.email, isSystemUser: isSystemUser },
       select: {
@@ -43,13 +43,17 @@ export class LoginHandler
         password: true,
         email: true,
         isSystemUser: true,
+        isConfirmed: true,
         firstName: true,
         lastName: true,
-        roles: {
-          roleId: true,
-          role: {
-            id: true,
-            type: true,
+        role: {
+          id: true,
+          type: true,
+        },
+        permissions: {
+          permissionId: true,
+          permission: {
+            key: true,
           },
         },
       },
@@ -57,6 +61,11 @@ export class LoginHandler
     if (!user) {
       this.logger.warn(`${functionName} User not found`);
       throw CommonException.NotFound('business.LGI.LGI_ERR_001');
+    }
+
+    if (!user.isConfirmed) {
+      this.logger.warn(`${functionName} => User isn't confirmed`);
+      throw CommonException.BadRequest('business.LGI.LGI_ERR_004');
     }
 
     const passwordDecrypted = CryptoJsHelper.decrypt(payload.password);
@@ -80,13 +89,11 @@ export class LoginHandler
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      roles: user.roles.map((role) => role.roleId),
+      roleId: user.role.id,
       permissions: user.permissions.map(
-        (permission) => permission.permissionId,
+        (permission) => permission.permission.key,
       ),
-      isSuperAdmin: !!user.roles.find(
-        (x) => x.role.type === RoleType.SuperAdmin,
-      ),
+      isSuperAdmin: user.role.type === RoleType.SuperAdmin,
       sessionId: sessionId,
     };
 

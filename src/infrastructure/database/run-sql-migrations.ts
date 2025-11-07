@@ -1,7 +1,7 @@
 ﻿// migration-runner.ts
 import { AppPathHelper } from '@common/helper';
 import { ConfigEnvironmentService } from '@src/configs';
-import { connectionSource } from '@src/configs/typeorm.config';
+import { connectionSource } from '@src/configs/typeorm.cli.config';
 import * as fs from 'fs';
 import * as path from 'path';
 import pino from 'pino';

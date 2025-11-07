@@ -71,7 +71,9 @@ export class TranslateService {
    * Check if the provided key belongs to business/system i18n namespaces
    */
   static isI18nKey(error: string): boolean {
-    return error.startsWith('business.') || error.startsWith('system.');
+    return ['business.', 'system.', 'internal.'].some((prefix) =>
+      error.startsWith(prefix),
+    );
   }
 
   /**

@@ -75,11 +75,7 @@ export class ForgotPasswordHandler
           recipientId: user.id,
           recipientEmail: user.email,
           personalizeContentModel: {
-            fullName: StringHelper.format(
-              '{0} {1}',
-              user.firstName,
-              user.lastName,
-            ),
+            fullName: StringHelper.toFullName(user.firstName, user.lastName),
           },
         },
       ],

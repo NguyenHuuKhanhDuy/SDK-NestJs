@@ -1,5 +1,5 @@
 ﻿import { CommonConstant, Max, Min, Regex } from '@common/constant';
-import { Provider, UserStatus } from '@common/enum';
+import { Provider, RoleType, UserStatus } from '@common/enum';
 import { CommonException } from '@common/exceptions';
 import {
   CryptoJsHelper,
@@ -65,6 +65,19 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
       throw CommonException.BadRequest('business.REG.REG_ERR_012');
     }
 
+    const userRole = await this.uow.roles.findOne({
+      where: {
+        type: RoleType.User,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (!userRole) {
+      this.logger.error(`${functionName} Get user role not found`);
+      throw CommonException.Internal('system.EXH.EXH_ERR_001');
+    }
+
     const userExisted = await this.uow.users.existsBy({
       email: payload.email.toLowerCase(),
     });
@@ -86,11 +99,8 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
       lastName: payload.lastName,
       isSystemUser: false,
       username: payload.email.toLowerCase(),
-      createdBy: StringHelper.format(
-        '{0} {1}',
-        payload.firstName,
-        payload.lastName,
-      ),
+      roleId: userRole.id,
+      createdBy: StringHelper.toFullName(payload.firstName, payload.lastName),
     });
 
     await this.uow.users.insert(newUser);
