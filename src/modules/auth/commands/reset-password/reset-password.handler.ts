@@ -53,7 +53,7 @@ export class ResetPasswordHandler
     });
     if (!user) {
       this.logger.error(`${functionName} User not found`);
-      throw CommonException.NotFound('business.FGP.FGP_ERR_007');
+      throw CommonException.NotFound('system.NOF.NOF_ERR_001');
     }
 
     if (!user.isConfirmed) {

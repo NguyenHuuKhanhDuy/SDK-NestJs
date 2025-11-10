@@ -11,10 +11,12 @@
     "ROL_ERR_004": "Some permissions do not exist"
   },
   "LGI": {
-    "LGI_ERR_001": "User not found",
+    "LGI_ERR_001": "",
     "LGI_ERR_002": "Login failed, please check your username and password",
     "LGI_ERR_003": "Account is locked, please contact support",
-    "LGI_ERR_004": "Email isn't confirmed"
+    "LGI_ERR_004": "Email isn't confirmed",
+    "LGI_ERR_005": "Two factor code is required",
+    "LGI_ERR_006": "Two factor code is invalid"
   },
   "REG": {
     "REG_ERR_001": "Email is required",
@@ -36,7 +38,7 @@
     "VRE_ERR_002": "Trading account not found",
     "VRE_ERR_003": "ConfirmEmailToken incorrect or expired",
     "VRE_ERR_004": "The Token field is required",
-    "VRE_ERR_005": "User not found"
+    "VRE_ERR_005": ""
   },
   "CHP": {
     "CHP_ERR_001": "Current password is incorrect",
@@ -46,7 +48,7 @@
     "CHP_ERR_005": "New password must be between {min} and {max} characters long, a combination of uppercase letters, lowercase letters, numbers, and without any white space.",
     "CHP_ERR_006": "Invalid new password",
     "CHP_ERR_007": "Invalid old password",
-    "CHP_ERR_008": "User not found"
+    "CHP_ERR_008": ""
   },
   "FGP": {
     "FGP_ERR_001": "Email is required",
@@ -55,12 +57,22 @@
     "FGP_ERR_004": "ResetPasswordToken incorrect or expired",
     "FGP_ERR_005": "New password is required",
     "FGP_ERR_006": "New password must be between {min} and {max} characters long, a combination of uppercase letters, lowercase letters, numbers, and without any white space.",
-    "FGP_ERR_007": "User not found",
+    "FGP_ERR_007": "",
     "FGP_ERR_008": "The email must be less than {max} characters",
     "FGP_ERR_009": "Email not confirmed",
     "FGP_ERR_010": "Invalid new password"
   },
   "PRF": {
-    "PRF_ERR_001": "User not found"
+    "PRF_ERR_001": ""
+  },
+  "2FA": {
+    "2FA_ERR_001": "Two factor code is required",
+    "2FA_ERR_002": "Invalid Two factor code",
+    "2FA_ERR_003": "Two factor already enabled",
+    "2FA_ERR_004": "Two factor hasn’t been enabled.",
+    "2FA_ERR_005": "The recovery code is invalid.",
+    "2FA_ERR_006": "Invalid email format, make sure you entered correctly",
+    "2FA_ERR_007": "The email must be less than {max} characters",
+    "2FA_ERR_008": "Please enable two-factor authentication before continuing with verification."
   }
 }

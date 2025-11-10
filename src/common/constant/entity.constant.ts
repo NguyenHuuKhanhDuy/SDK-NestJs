@@ -42,6 +42,9 @@ export const Columns = {
     Provider: 'provider',
     CountryId: 'country_id',
     RoleId: 'role_id',
+    TwoFactorSecret: 'two_factor_secret',
+    TwoFactorEnabled: 'two_factor_enabled',
+    RecoveryCode: 'recovery_code',
   },
   Department: {
     Name: 'name',

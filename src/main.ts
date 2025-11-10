@@ -121,7 +121,7 @@ async function bootstrap() {
   // Start app
   logger.log('Starting application...');
   await app.listen(port);
-  logger.log(`Application is running on: http://localhost:${port}/${prefix}`);
+  logger.log(`Application is running on: http://localhost:${port}`);
 }
 
 bootstrap();

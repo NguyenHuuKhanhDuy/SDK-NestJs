@@ -56,16 +56,40 @@ export class LoginHandler
             key: true,
           },
         },
+        twoFactorEnabled: true,
+        twoFactorSecret: true,
       },
     });
     if (!user) {
       this.logger.warn(`${functionName} User not found`);
-      throw CommonException.NotFound('business.LGI.LGI_ERR_001');
+      throw CommonException.NotFound('system.NOF.NOF_ERR_001');
     }
 
     if (!user.isConfirmed) {
       this.logger.warn(`${functionName} => User isn't confirmed`);
       throw CommonException.BadRequest('business.LGI.LGI_ERR_004');
+    }
+
+    if (user.twoFactorEnabled) {
+      if (!payload.twoFactorCode) {
+        this.logger.warn(`${functionName} Two factor code is required`);
+        throw CommonException.BadRequest('business.LGI.LGI_ERR_005');
+      }
+
+      const codeDecrypted = CryptoJsHelper.decrypt(payload.twoFactorCode);
+      if (!codeDecrypted) {
+        this.logger.warn(`${functionName} Two factor code is invalid`);
+        throw CommonException.BadRequest('business.LGI.LGI_ERR_006');
+      }
+
+      const isValid = SecurityHelper.verifyOtpToken(
+        codeDecrypted,
+        CryptoJsHelper.decrypt(user.twoFactorSecret),
+      );
+      if (!isValid) {
+        this.logger.warn(`${functionName} Two factor code is invalid`);
+        throw CommonException.BadRequest('business.LGI.LGI_ERR_006');
+      }
     }
 
     const passwordDecrypted = CryptoJsHelper.decrypt(payload.password);

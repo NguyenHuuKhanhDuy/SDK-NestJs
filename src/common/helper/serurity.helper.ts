@@ -1,5 +1,7 @@
 ﻿import * as bcrypt from 'bcrypt';
 import { randomBytes, randomUUID } from 'crypto';
+import * as qrcode from 'qrcode';
+import * as speakeasy from 'speakeasy';
 
 export class SecurityHelper {
   /**
@@ -70,5 +72,72 @@ export class SecurityHelper {
       .toString('base64url') // URL-safe Base64 (no + / or =)
       .replace(/[^a-zA-Z0-9-_]/g, '')
       .substring(0, 22); // keep short but unique
+  }
+
+  // ============================================================
+  // 🧩 Google Authenticator / OTP Functions
+  // ============================================================
+
+  /**
+   * Generate OTP secret for a user
+   * @param label Usually app name or user email
+   * @returns secret, otpauth_url, and base32
+   */
+  static generateOtpSecret(label: string) {
+    const secret = speakeasy.generateSecret({
+      name: label,
+    });
+
+    return {
+      base32: secret.base32,
+      otpAuthUrl: secret.otpauth_url,
+    };
+  }
+
+  /**
+   * Generate QR code image (data URL) from OTP Auth URL
+   * @param otpAuthUrl The otpauth:// URL
+   */
+  static async generateOtpQrCode(otpAuthUrl: string): Promise<string> {
+    return await qrcode.toDataURL(otpAuthUrl);
+  }
+
+  /**
+   * Verify OTP token
+   * @param token 6-digit code user entered
+   * @param secret The base32 secret stored in DB
+   * @returns boolean true if valid
+   */
+  static verifyOtpToken(token: string, secret: string): boolean {
+    return speakeasy.totp.verify({
+      secret,
+      encoding: 'base32',
+      token,
+      window: 1,
+    });
+  }
+
+  /**
+   * Generate current OTP code (useful for testing)
+   */
+  static generateCurrentOtpToken(secret: string): string {
+    return speakeasy.totp({
+      secret,
+      encoding: 'base32',
+    });
+  }
+
+  /**
+   * Generate readable recovery code, e.g. "XXXX-XXXX-XXXX-XXXX"
+   * (Excludes O, 0, I, l to avoid confusion)
+   */
+  static generateRecoveryCode(length: number = 16): string {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+    let code = '';
+    for (let i = 0; i < length; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    return code.match(/.{1,4}/g)?.join('-') ?? code;
   }
 }

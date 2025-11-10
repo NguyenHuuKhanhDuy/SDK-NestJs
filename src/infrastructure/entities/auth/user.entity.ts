@@ -111,6 +111,28 @@ export class User extends AuditTableEntity {
   })
   roleId: number;
 
+  @Column({
+    name: Columns.User.TwoFactorSecret,
+    type: 'varchar',
+    length: 100,
+    nullable: true,
+  })
+  twoFactorSecret?: string;
+
+  @Column({
+    name: Columns.User.TwoFactorEnabled,
+    type: 'bool',
+    default: false,
+  })
+  twoFactorEnabled: boolean;
+
+  @Column({
+    name: Columns.User.RecoveryCode,
+    type: 'varchar',
+    nullable: true,
+  })
+  recoveryCode?: string;
+
   @ManyToOne(() => Department, (department) => department.users, {
     nullable: true,
   })

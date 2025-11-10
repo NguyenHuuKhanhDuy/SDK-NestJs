@@ -39,7 +39,7 @@ export class GetProfileHandler
     });
     if (!user) {
       this.logger.error(`${functionName} User not found`);
-      throw CommonException.NotFound('business.PRF.PRF_ERR_001');
+      throw CommonException.NotFound('system.NOF.NOF_ERR_001');
     }
 
     return new GetProfileResponse({

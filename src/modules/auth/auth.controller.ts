@@ -15,6 +15,8 @@ import {
   LoginRequest,
   RegisterCommand,
   RegisterRequest,
+  Reset2faByRecoveryCodeCommand,
+  Reset2faByRecoveryCodeRequest,
   ResetPasswordCommand,
   ResetPasswordRequest,
   VerifyEmailCommand,
@@ -81,6 +83,13 @@ export class AuthController extends BaseController {
   @Post('reset-password')
   async resetPassword(@Body() body: ResetPasswordRequest) {
     await this.command.execute(new ResetPasswordCommand(body));
+    return this.successResponse(null);
+  }
+
+  @Public()
+  @Post('reset-2fa-by-recovery-code')
+  async reset2faByRecoveryCode(@Body() body: Reset2faByRecoveryCodeRequest) {
+    await this.command.execute(new Reset2faByRecoveryCodeCommand(body));
     return this.successResponse(null);
   }
 

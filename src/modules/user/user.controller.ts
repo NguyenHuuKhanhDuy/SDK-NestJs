@@ -8,6 +8,9 @@ import {
   ChangePasswordCommand,
   ChangePasswordRequest,
   LogoutCommand,
+  Setup2faCommand,
+  Verify2faCommand,
+  Verify2faRequest,
 } from './commands';
 import { GetProfileQuery } from './queris';
 
@@ -43,5 +46,17 @@ export class UserController extends BaseController {
   async getProfileAdmin() {
     const response = await this.query.execute(new GetProfileQuery(Site.Admin));
     return this.successResponse(response);
+  }
+
+  @Post('setup-2fa')
+  async setup2fa() {
+    const response = await this.command.execute(new Setup2faCommand());
+    return this.successResponse(response);
+  }
+
+  @Post('verify-2fa')
+  async verify2fa(@Body() body: Verify2faRequest) {
+    await this.command.execute(new Verify2faCommand(body));
+    return this.successResponse(null);
   }
 }

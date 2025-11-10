@@ -49,7 +49,7 @@ export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {
     });
     if (!user) {
       this.logger.error(`${functionName} user not found`);
-      throw CommonException.NotFound('business.VRE.VRE_ERR_005');
+      throw CommonException.NotFound('system.NOF.NOF_ERR_001');
     }
 
     if (user.isConfirmed) {

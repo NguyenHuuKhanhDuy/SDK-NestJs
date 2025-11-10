@@ -69,7 +69,7 @@ export class ChangePasswordHandler
 
     if (!user) {
       this.logger.error(`${functionName} User not found`);
-      throw CommonException.NotFound('business.CHP.CHP_ERR_008');
+      throw CommonException.NotFound('system.NOF.NOF_ERR_001');
     }
 
     // 5️⃣ Verify old password

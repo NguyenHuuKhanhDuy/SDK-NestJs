@@ -22,6 +22,8 @@ export type I18nTranslations = {
             "LGI_ERR_002": string;
             "LGI_ERR_003": string;
             "LGI_ERR_004": string;
+            "LGI_ERR_005": string;
+            "LGI_ERR_006": string;
         };
         "REG": {
             "REG_ERR_001": string;
@@ -70,6 +72,16 @@ export type I18nTranslations = {
         "PRF": {
             "PRF_ERR_001": string;
         };
+        "2FA": {
+            "2FA_ERR_001": string;
+            "2FA_ERR_002": string;
+            "2FA_ERR_003": string;
+            "2FA_ERR_004": string;
+            "2FA_ERR_005": string;
+            "2FA_ERR_006": string;
+            "2FA_ERR_007": string;
+            "2FA_ERR_008": string;
+        };
     };
     "internal": {
         "USER": {
@@ -93,6 +105,9 @@ export type I18nTranslations = {
         };
     };
     "system": {
+        "NOF": {
+            "NOF_ERR_001": string;
+        };
         "EXH": {
             "EXH_ERR_001": string;
         };
