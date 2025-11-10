@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@nestjs/common';
 import {
+  AuditLog,
   Country,
   Department,
   Menu,
@@ -14,6 +15,7 @@ import {
   UserPermission,
 } from '@src/infrastructure/entities';
 import {
+  AuditLogRepository,
   CountryRepository,
   DepartmentRepository,
   MenuRepository,
@@ -43,6 +45,7 @@ export class UnitOfWork {
   public readonly notificationTemplates: NotificationTemplateRepository;
   public readonly countries: CountryRepository;
   public readonly systemConfigs: SystemConfigRepository;
+  public readonly auditLogs: AuditLogRepository;
 
   constructor(
     private readonly dataSource: DataSource,
@@ -74,6 +77,7 @@ export class UnitOfWork {
     this.systemConfigs = new SystemConfigRepository(
       em.getRepository(SystemConfig),
     );
+    this.auditLogs = new AuditLogRepository(em.getRepository(AuditLog));
   }
 
   async withTransaction<T>(

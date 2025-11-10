@@ -9,7 +9,7 @@ import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Permission } from './permission.entity';
 import { User } from './user.entity';
 
-@Entity({ name: Tables.UserPermission, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.UserPermission, schema: Schemas.BackOffice })
 export class UserPermission {
   @PrimaryColumn({ name: Columns.UserPermission.UserId })
   userId: string;

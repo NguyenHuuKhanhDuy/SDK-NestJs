@@ -2,7 +2,7 @@
 import { User } from '@src/infrastructure/entities/auth/user.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: Tables.Country, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.Country, schema: Schemas.BackOffice })
 export class Country {
   @PrimaryGeneratedColumn('increment', {
     name: Columns.Base.ID,

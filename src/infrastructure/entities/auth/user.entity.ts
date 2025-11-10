@@ -22,7 +22,7 @@ import { Department } from './department.entity';
 import { Role } from './role.entity';
 import { UserPermission } from './user-permisstion.entity';
 
-@Entity({ name: Tables.User, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.User, schema: Schemas.BackOffice })
 export class User extends AuditTableEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: Columns.Base.ID,

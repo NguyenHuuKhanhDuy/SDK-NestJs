@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: Tables.SystemConfig, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.SystemConfig, schema: Schemas.BackOffice })
 export class SystemConfig {
   @PrimaryGeneratedColumn('uuid', {
     name: Columns.Base.ID,
@@ -19,14 +19,22 @@ export class SystemConfig {
   key: string;
 
   @Column({ name: Columns.SystemConfig.Value, type: 'jsonb' })
-  value: Record<string, any>;
+  value: string;
 
   @Column({ name: Columns.SystemConfig.IsActive, default: true })
   isActive: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    name: Columns.Base.CreatedAt,
+    type: 'timestamp with time zone',
+    nullable: false,
+  })
   createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({
+    name: Columns.Base.UpdatedAt,
+    type: 'timestamp with time zone',
+    nullable: true,
+  })
+  updatedAt?: Date;
 }

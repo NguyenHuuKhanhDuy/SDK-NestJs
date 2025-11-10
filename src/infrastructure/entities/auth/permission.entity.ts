@@ -19,7 +19,7 @@ import { Menu } from './menu.entity';
 import { RolePermission } from './role-permission.entity';
 import { UserPermission } from './user-permisstion.entity';
 
-@Entity({ name: Tables.Permission, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.Permission, schema: Schemas.BackOffice })
 export class Permission extends AuditTableEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: Columns.Base.ID,

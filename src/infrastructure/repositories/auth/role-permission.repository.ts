@@ -1,11 +1,15 @@
-﻿import { RolePermission } from '@infrastructure/entities';
+﻿import { IRolePermissionRepository } from '@domain/repositories';
+import { RolePermission } from '@infrastructure/entities';
 import { GenericRepository } from '@infrastructure/repositories/generic.repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class RolePermissionRepository extends GenericRepository<RolePermission> {
+export class RolePermissionRepository
+  extends GenericRepository<RolePermission>
+  implements IRolePermissionRepository
+{
   constructor(
     @InjectRepository(RolePermission)
     protected readonly repository: Repository<RolePermission>,

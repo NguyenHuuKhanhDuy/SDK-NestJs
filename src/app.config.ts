@@ -6,12 +6,12 @@ dotenvConfig({ path: '.env' });
 
 export const APP_CONFIG = {
   // Application configuration
-  NODE_ENV: process.env.NODE_ENV,
-  APP_HOST: process.env.APP_HOST,
-  APP_PORT: process.env.APP_PORT,
-  LOG_LEVEL: process.env.LOG_LEVEL,
-  CLIENT_SECRET_KEY: process.env.CLIENT_SECRET_KEY,
-  CORS_ALLOWED_ORIGINS: process.env.CORS_ALLOWED_ORIGINS,
+  // NODE_ENV: process.env.NODE_ENV,
+  // APP_HOST: process.env.APP_HOST,
+  // APP_PORT: process.env.APP_PORT,
+  // LOG_LEVEL: process.env.LOG_LEVEL,
+  // CLIENT_SECRET_KEY: process.env.CLIENT_SECRET_KEY,
+  // CORS_ALLOWED_ORIGINS: process.env.CORS_ALLOWED_ORIGINS,
 
   // Database configuration
   DB_HOST: process.env.DB_HOST,

@@ -1,5 +1,5 @@
 ﻿export const Schemas = {
-  Ecommerce: 'ecommerce',
+  BackOffice: 'backoffice',
   Communication: 'communication',
 };
 
@@ -17,6 +17,7 @@ export const Tables = {
   NotificationTemplate: 'notification_template',
   Country: 'country',
   SystemConfig: 'system_config',
+  AuditLog: 'audit_log',
 };
 
 export const Columns = {
@@ -127,6 +128,18 @@ export const Columns = {
     Value: 'value',
     IsActive: 'is_active',
   },
+  AuditLog: {
+    RecordId: 'record_id',
+    UserId: 'user_id',
+    TableName: 'table_name',
+    Action: 'action',
+    Data: 'data',
+    IpAddress: 'ip_address',
+    UserAgent: 'user_agent',
+    CreatedAt: 'created_at',
+    Before: 'before',
+    After: 'after',
+  },
 };
 
 export const Keys = {
@@ -199,5 +212,11 @@ export const Keys = {
   },
   SystemConfig: {
     Primary: 'pk_system_config',
+  },
+  AuditLog: {
+    Primary: 'pk_audit_log',
+    Index: {
+      composite: 'idx_audit_log__table_name__record_id__created_at',
+    },
   },
 };

@@ -9,7 +9,7 @@ import {
 } from '@src/common/constant/entity.constant';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: Tables.Role, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.Role, schema: Schemas.BackOffice })
 export class Role extends AuditTableEntity {
   @PrimaryGeneratedColumn('increment', {
     name: Columns.Base.ID,

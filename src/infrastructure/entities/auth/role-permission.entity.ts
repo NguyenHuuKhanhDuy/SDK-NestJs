@@ -9,7 +9,7 @@ import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Permission } from './permission.entity';
 import { Role } from './role.entity';
 
-@Entity({ name: Tables.RolePermission, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.RolePermission, schema: Schemas.BackOffice })
 export class RolePermission {
   @PrimaryColumn({ name: Columns.RolePermission.RoleId, type: 'uuid' })
   roleId: number;

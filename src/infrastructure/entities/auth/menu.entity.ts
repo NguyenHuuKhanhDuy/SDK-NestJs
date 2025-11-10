@@ -16,7 +16,7 @@ import {
 
 import { Permission } from './permission.entity';
 
-@Entity({ name: Tables.Menu, schema: Schemas.Ecommerce })
+@Entity({ name: Tables.Menu, schema: Schemas.BackOffice })
 export class Menu extends AuditTableEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: Columns.Base.ID,
