@@ -110,6 +110,7 @@ export type I18nTranslations = {
         };
         "EXH": {
             "EXH_ERR_001": string;
+            "EXH_ERR_002": string;
         };
     };
 };

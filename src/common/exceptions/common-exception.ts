@@ -36,6 +36,13 @@ export class CommonException {
     return this.build(HttpStatus.INTERNAL_SERVER_ERROR, key, args);
   }
 
+  static TooManyRequests(
+    key: Path<I18nTranslations>,
+    args?: Record<string, any>,
+  ) {
+    return this.build(HttpStatus.TOO_MANY_REQUESTS, key, args);
+  }
+
   static ValidationException(message: string, code: string) {
     return new BusinessException(message, code, HttpStatus.BAD_REQUEST);
   }

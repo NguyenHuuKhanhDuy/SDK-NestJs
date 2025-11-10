@@ -1,5 +1,6 @@
 ﻿import { Site } from '@common/enum';
 import { BaseController } from '@common/models';
+import { RateLimit } from '@core/services/rate-limit';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
@@ -48,12 +49,14 @@ export class UserController extends BaseController {
     return this.successResponse(response);
   }
 
+  @RateLimit('short')
   @Post('setup-2fa')
   async setup2fa() {
     const response = await this.command.execute(new Setup2faCommand());
     return this.successResponse(response);
   }
 
+  @RateLimit('short')
   @Post('verify-2fa')
   async verify2fa(@Body() body: Verify2faRequest) {
     await this.command.execute(new Verify2faCommand(body));

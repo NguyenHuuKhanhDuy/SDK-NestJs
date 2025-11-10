@@ -1,4 +1,5 @@
-﻿import { CommonException } from '@common/exceptions';
+﻿import { EnvKey } from '@common/constant';
+import { CommonException } from '@common/exceptions';
 import {
   CryptoJsHelper,
   SecurityHelper,
@@ -8,6 +9,7 @@ import {
 import { RequestContextService } from '@common/interceptor';
 import { LoggerService } from '@core/services/logger';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { ConfigEnvironmentService } from '@src/configs';
 import { UnitOfWork } from '@src/infrastructure';
 
 import { Setup2faCommand } from './setup-2fa.command';
@@ -23,13 +25,16 @@ export class Setup2faHandler
   ) {}
 
   async execute(): Promise<Setup2faResponse> {
-    const userContext = RequestContextService.getUserContext();
-    const functionName = `${Setup2faHandler.name} UserId = ${userContext.id}`;
+    const userId = RequestContextService.getCurrentUserId();
+    const functionName = `${Setup2faHandler.name} UserId = ${userId}`;
     this.logger.log(functionName);
     const user = await this.uow.users.findOne({
-      where: { id: userContext.id },
+      where: { id: userId },
       select: {
         twoFactorEnabled: true,
+        email: true,
+        firstName: true,
+        lastName: true,
       },
     });
 
@@ -44,20 +49,19 @@ export class Setup2faHandler
     }
 
     const { base32, otpAuthUrl } = SecurityHelper.generateOtpSecret(
-      `WeMasterTrade: ${userContext.email}`,
+      `${ConfigEnvironmentService.getIns().get(EnvKey.App.CompanyName)}: ${
+        user.email
+      }`,
     );
     const base32Encrypt = CryptoJsHelper.encrypt(base32);
     const qrCode = await SecurityHelper.generateOtpQrCode(otpAuthUrl);
     const recoveryCode = SecurityHelper.generateRecoveryCode();
 
-    await this.uow.users.update(userContext.id, {
+    await this.uow.users.update(userId, {
       twoFactorSecret: base32Encrypt,
       recoveryCode: await SecurityHelper.hash(recoveryCode),
       updatedAt: TimeHelper.nowUtc(),
-      updatedBy: StringHelper.toFullName(
-        userContext.firstName,
-        userContext.lastName,
-      ),
+      updatedBy: StringHelper.toFullName(user.firstName, user.lastName),
     });
 
     return new Setup2faResponse({

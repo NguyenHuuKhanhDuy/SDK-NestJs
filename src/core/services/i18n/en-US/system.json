@@ -3,6 +3,7 @@
     "NOF_ERR_001": "User not found"
   },
   "EXH": {
-    "EXH_ERR_001": "Internal Server Error"
+    "EXH_ERR_001": "Internal Server Error",
+    "EXH_ERR_002": "Too many requests — please wait before retrying."
   }
 }

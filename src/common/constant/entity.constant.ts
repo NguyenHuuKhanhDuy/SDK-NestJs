@@ -16,6 +16,7 @@ export const Tables = {
   NotificationSetting: 'notification_setting',
   NotificationTemplate: 'notification_template',
   Country: 'country',
+  SystemConfig: 'system_config',
 };
 
 export const Columns = {
@@ -120,6 +121,12 @@ export const Columns = {
     Alpha2Code: 'alpha2_code',
     Alpha3Code: 'alpha3_code',
   },
+  SystemConfig: {
+    Key: 'key',
+    Description: 'description',
+    Value: 'value',
+    IsActive: 'is_active',
+  },
 };
 
 export const Keys = {
@@ -129,6 +136,10 @@ export const Keys = {
       Department: 'fk_user__department',
       Country: 'fk_user__country',
       Role: 'fk_user__role',
+    },
+    Unique: {
+      Username: 'uq_user__username',
+      Email: 'uq_user__email',
     },
   },
   Department: {
@@ -185,5 +196,8 @@ export const Keys = {
   },
   Country: {
     Primary: 'pk_country',
+  },
+  SystemConfig: {
+    Primary: 'pk_system_config',
   },
 };

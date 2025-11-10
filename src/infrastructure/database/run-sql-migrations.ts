@@ -8,7 +8,6 @@ import pino from 'pino';
 
 const migrationOrder = ['sequences', 'scripts', 'functions', 'alter', 'seed'];
 
-// ✅ Tạo logger Pino độc lập (không cần Nest context)
 const logger = pino({
   level: 'info',
   transport: ConfigEnvironmentService.isProduction()
@@ -52,7 +51,6 @@ async function runMigrations() {
         );
 
         if (alreadyRun.length > 0) {
-          logger.warn(`Skip (already run): ${file}`);
           continue;
         }
 

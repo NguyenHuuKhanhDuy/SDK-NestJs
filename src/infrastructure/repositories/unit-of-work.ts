@@ -9,6 +9,7 @@ import {
   Permission,
   Role,
   RolePermission,
+  SystemConfig,
   User,
   UserPermission,
 } from '@src/infrastructure/entities';
@@ -22,6 +23,7 @@ import {
   PermissionRepository,
   RolePermissionRepository,
   RoleRepository,
+  SystemConfigRepository,
   UserPermissionRepository,
   UserRepository,
 } from '@src/infrastructure/repositories';
@@ -40,6 +42,7 @@ export class UnitOfWork {
   public readonly notificationSettings: NotificationSettingRepository;
   public readonly notificationTemplates: NotificationTemplateRepository;
   public readonly countries: CountryRepository;
+  public readonly systemConfigs: SystemConfigRepository;
 
   constructor(
     private readonly dataSource: DataSource,
@@ -68,6 +71,9 @@ export class UnitOfWork {
       em.getRepository(NotificationTemplate),
     );
     this.countries = new CountryRepository(em.getRepository(Country));
+    this.systemConfigs = new SystemConfigRepository(
+      em.getRepository(SystemConfig),
+    );
   }
 
   async withTransaction<T>(
