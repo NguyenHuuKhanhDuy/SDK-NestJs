@@ -25,7 +25,9 @@ export class VerifyEmailHandler implements ICommandHandler<VerifyEmailCommand> {
     const functionName = `${VerifyEmailHandler.name} =>`;
     this.logger.log(functionName);
 
-    const decryptedToken = CryptoJsHelper.decrypt(command.payload.token);
+    const decryptedToken = CryptoJsHelper.decrypt(
+      decodeURIComponent(command.payload.token),
+    );
     if (!decryptedToken) {
       this.logger.error(`${functionName} can not decrypt`);
       throw CommonException.BadRequest('business.VRE.VRE_ERR_003');

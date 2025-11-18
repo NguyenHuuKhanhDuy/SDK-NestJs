@@ -11,10 +11,11 @@ export class GetUsersData {
   email: string;
   firstName: string;
   lastName: string;
-  roles: string[];
+  role: string;
   isSuperAdmin: boolean;
   status: UserStatus;
   isConfirmed: boolean;
+  createdAt: Date;
 
   constructor(partials?: Partial<GetUsersData>) {
     Object.assign(this, partials);

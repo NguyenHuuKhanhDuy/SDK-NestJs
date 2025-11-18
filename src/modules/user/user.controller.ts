@@ -1,7 +1,7 @@
 ﻿import { Site } from '@common/enum';
 import { BaseController } from '@common/models';
 import { RateLimit } from '@core/services/rate-limit';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -10,10 +10,10 @@ import {
   ChangePasswordRequest,
   LogoutCommand,
   Setup2faCommand,
-  Verify2faCommand,
-  Verify2faRequest,
+  Toggle2faCommand,
+  Toggle2faRequest,
 } from './commands';
-import { GetProfileQuery } from './queris';
+import { GetPermissionsQuery, GetProfileQuery } from './queris';
 
 @Controller('users')
 @ApiTags('User')
@@ -31,7 +31,7 @@ export class UserController extends BaseController {
     return this.successResponse(null);
   }
 
-  @Post('change-password')
+  @Put('change-password')
   async changePassword(@Body() body: ChangePasswordRequest) {
     await this.command.execute(new ChangePasswordCommand(body));
     return this.successResponse(null);
@@ -49,6 +49,12 @@ export class UserController extends BaseController {
     return this.successResponse(response);
   }
 
+  @Get('admin/permissions')
+  async getPermissionsAdmin() {
+    const response = await this.query.execute(new GetPermissionsQuery());
+    return this.successResponse(response);
+  }
+
   @RateLimit('short')
   @Post('setup-2fa')
   async setup2fa() {
@@ -57,9 +63,9 @@ export class UserController extends BaseController {
   }
 
   @RateLimit('short')
-  @Post('verify-2fa')
-  async verify2fa(@Body() body: Verify2faRequest) {
-    await this.command.execute(new Verify2faCommand(body));
+  @Post('toggle-2fa')
+  async verify2fa(@Body() body: Toggle2faRequest) {
+    await this.command.execute(new Toggle2faCommand(body));
     return this.successResponse(null);
   }
 }

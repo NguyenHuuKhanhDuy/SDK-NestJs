@@ -27,7 +27,9 @@ export class AcceptToAdminHandler
     const functionName = `${AcceptToAdminHandler.name} =>`;
     this.logger.log(functionName);
 
-    const decryptedToken = CryptoJsHelper.decrypt(command.payload.token);
+    const decryptedToken = CryptoJsHelper.decrypt(
+      decodeURIComponent(command.payload.token),
+    );
     if (!decryptedToken) {
       this.logger.error(`${functionName} can not decrypt`);
       throw CommonException.BadRequest('internal.USER.USER_ERR_016');

@@ -71,7 +71,7 @@ export interface IGenericRepository<Entity extends ObjectLiteral> {
     deletedBy: string,
   ): Promise<UpdateResult>;
 
-  deleteHard(
+  delete(
     criteria:
       | string
       | number

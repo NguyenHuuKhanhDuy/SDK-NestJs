@@ -7,4 +7,13 @@
     Update: 'user:update',
     Delete: 'user:delete',
   },
+  Systems: {
+    Role: {
+      GetAll: 'role:get-all',
+      GetDetail: 'role:get-detail',
+      Create: 'role:create',
+      Update: 'role:update',
+      Delete: 'role:delete',
+    },
+  },
 };

@@ -5,6 +5,12 @@ import { Response } from 'express';
 @Controller('health')
 export class HealthController {
   @Public()
+  @Get('ping')
+  ping() {
+    return;
+  }
+
+  @Public()
   @Get()
   ui(@Res() res: Response) {
     const isHealthy = true;
@@ -57,7 +63,9 @@ export class HealthController {
         <body>
           <div class="card">
             <h1>${isHealthy ? '✅ Healthy' : '❌ Unhealthy'}</h1>
-            <p>Service is ${isHealthy ? 'running smoothly' : 'not responding'}</p>
+            <p>Service is ${
+              isHealthy ? 'running smoothly' : 'not responding'
+            }</p>
             <div class="status">${new Date().toLocaleString()}</div>
           </div>
         </body>

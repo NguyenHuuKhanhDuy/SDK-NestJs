@@ -11,4 +11,8 @@ export class GetUsersRequest extends PaginationQuery {
   @ApiPropertyOptional({ example: 'john.doe' })
   @IsOptional()
   search?: string;
+
+  @ApiPropertyOptional({ example: 'john.doe' })
+  @IsOptional()
+  roleId?: number;
 }

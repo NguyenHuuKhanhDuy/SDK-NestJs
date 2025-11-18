@@ -68,7 +68,9 @@ export class ForgotPasswordHandler
       JsonHelper.serialize(new ForgotPasswordDto(forgotPasswordToken, user.id)),
     );
 
-    const forgotPasswordLink = `${domain}/reset-password?token=${forgotPasswordInfoEncrypted}`;
+    const forgotPasswordLink = `${domain}/reset-password?token=${encodeURIComponent(
+      forgotPasswordInfoEncrypted,
+    )}`;
     const sendNotificationDto = JsonHelper.toInstance(SendNotificationDto, {
       recipients: [
         {

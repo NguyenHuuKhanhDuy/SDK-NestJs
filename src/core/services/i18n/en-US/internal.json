@@ -17,5 +17,8 @@
     "USER_ERR_015": "Role is required",
     "USER_ERR_016": "InviteLink incorrect or expired",
     "USER_ERR_017": "Email is already accepted"
+  },
+  "ROL": {
+    "ROL_ERR_001": "Some permissions do not exist"
   }
 }

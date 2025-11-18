@@ -8,6 +8,7 @@ export class GetProfileResponse {
   provider: Provider;
   createdAt: Date;
   countryId: number;
+  isTwoFactorEnabled: boolean;
 
   constructor(partial?: Partial<GetProfileResponse>) {
     Object.assign(this, partial);

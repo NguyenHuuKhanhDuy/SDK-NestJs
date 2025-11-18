@@ -1,6 +1,7 @@
 {
   "NOF":  {
-    "NOF_ERR_001": "User not found"
+    "NOF_ERR_001": "User not found",
+    "NOF_ERR_002": "Role not found"
   },
   "EXH": {
     "EXH_ERR_001": "Internal Server Error",

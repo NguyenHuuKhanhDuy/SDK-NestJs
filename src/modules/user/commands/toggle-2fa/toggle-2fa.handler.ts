@@ -10,19 +10,19 @@ import { LoggerService } from '@core/services/logger';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UnitOfWork } from '@src/infrastructure';
 
-import { Verify2faCommand } from './verify-2fa.command';
+import { Toggle2faCommand } from './toggle-2fa.command';
 
-@CommandHandler(Verify2faCommand)
-export class Verify2faHandler implements ICommandHandler<Verify2faCommand> {
+@CommandHandler(Toggle2faCommand)
+export class Toggle2faHandler implements ICommandHandler<Toggle2faCommand> {
   constructor(
     private readonly logger: LoggerService,
     private readonly uow: UnitOfWork,
   ) {}
 
-  async execute(command: Verify2faCommand): Promise<void> {
+  async execute(command: Toggle2faCommand): Promise<void> {
     const userContext = RequestContextService.getUserContext();
     const payload = command.payload;
-    const functionName = `${Verify2faHandler.name} UserId = ${userContext.id}`;
+    const functionName = `${Toggle2faHandler.name} UserId = ${userContext.id}`;
     this.logger.log(functionName);
     const user = await this.uow.users.findOne({
       where: {
@@ -39,8 +39,8 @@ export class Verify2faHandler implements ICommandHandler<Verify2faCommand> {
       throw CommonException.NotFound('system.NOF.NOF_ERR_001');
     }
 
-    if (user.twoFactorEnabled) {
-      this.logger.error(`${functionName} 2FA already enabled`);
+    if (user.twoFactorEnabled === payload.isEnable) {
+      this.logger.error(`${functionName} 2FA already state`);
       throw CommonException.BadRequest('business.2FA.2FA_ERR_003');
     }
 
@@ -66,7 +66,7 @@ export class Verify2faHandler implements ICommandHandler<Verify2faCommand> {
     }
 
     await this.uow.users.update(userContext.id, {
-      twoFactorEnabled: true,
+      twoFactorEnabled: payload.isEnable,
       updatedAt: TimeHelper.nowUtc(),
       updatedBy: StringHelper.toFullName(
         userContext.firstName,

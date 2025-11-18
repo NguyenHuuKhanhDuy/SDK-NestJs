@@ -39,7 +39,9 @@ export class AuthService {
         new EmailConfirmationDto(user.id, emailConfirmationToken),
       ),
     );
-    const emailConfirmationLink = `${domain}/verify?token=${emailConfirmationInfoEncrypted}`;
+    const emailConfirmationLink = `${domain}/verify?token=${encodeURIComponent(
+      emailConfirmationInfoEncrypted,
+    )}`;
 
     const sendNotificationDto = JsonHelper.toInstance(SendNotificationDto, {
       recipients: [

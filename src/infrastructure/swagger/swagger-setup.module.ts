@@ -25,7 +25,7 @@ export class SwaggerSetupModule {
       .build();
 
     const authenticationModules = [AuthModule];
-    const internalModules = [I.UserModule];
+    const internalModules = [I.UserModule, I.RoleModule, I.PermissionModule];
     const clientModules = [UserModule, CountryModule, HealthModule];
 
     // NOTE:: Setup main API Swagger UI with dropdown support

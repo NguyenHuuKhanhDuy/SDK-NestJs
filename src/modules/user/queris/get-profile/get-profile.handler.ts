@@ -35,6 +35,7 @@ export class GetProfileHandler
         provider: true,
         createdAt: true,
         countryId: true,
+        twoFactorEnabled: true,
       },
     });
     if (!user) {
@@ -50,6 +51,7 @@ export class GetProfileHandler
       lastName: user.lastName,
       provider: user.provider,
       firstName: user.firstName,
+      isTwoFactorEnabled: user.twoFactorEnabled,
     });
   }
 }

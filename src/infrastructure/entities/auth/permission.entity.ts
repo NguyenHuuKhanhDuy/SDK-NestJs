@@ -57,6 +57,9 @@ export class Permission extends AuditTableEntity {
   @Column({ name: Columns.Permission.Type, type: 'int', nullable: false })
   type: PermissionType;
 
+  @Column({ name: Columns.Permission.OrderNo, type: 'int', nullable: false })
+  orderNo: number;
+
   @OneToMany(() => UserPermission, (up) => up.permission)
   users: UserPermission[];
 

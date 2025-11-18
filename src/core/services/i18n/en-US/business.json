@@ -68,7 +68,7 @@
   "2FA": {
     "2FA_ERR_001": "Two factor code is required",
     "2FA_ERR_002": "Invalid Two factor code",
-    "2FA_ERR_003": "Two factor already enabled",
+    "2FA_ERR_003": "Two factor already state",
     "2FA_ERR_004": "Two factor hasn’t been enabled.",
     "2FA_ERR_005": "The recovery code is invalid.",
     "2FA_ERR_006": "Invalid email format, make sure you entered correctly",

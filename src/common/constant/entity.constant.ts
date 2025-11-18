@@ -58,6 +58,7 @@ export const Columns = {
     Key: 'key',
     MenuId: 'menu_id',
     Type: 'type',
+    OrderNo: 'order_no',
   },
   Role: {
     Name: 'name',

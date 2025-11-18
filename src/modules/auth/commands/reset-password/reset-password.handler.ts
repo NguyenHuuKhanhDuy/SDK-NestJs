@@ -30,7 +30,9 @@ export class ResetPasswordHandler
     const payload = command.payload;
     this.logger.log(functionName);
 
-    const decryptedToken = CryptoJsHelper.decrypt(payload.token);
+    const decryptedToken = CryptoJsHelper.decrypt(
+      decodeURIComponent(payload.token),
+    );
     if (!decryptedToken) {
       this.logger.error(`${functionName} can not decrypt`);
       throw CommonException.BadRequest('business.FGP.FGP_ERR_004');

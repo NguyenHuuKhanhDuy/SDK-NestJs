@@ -107,7 +107,7 @@ export class GenericRepository<Entity extends ObjectLiteral>
     } as unknown as QueryDeepPartialEntity<Entity>);
   }
 
-  async deleteHard(
+  async delete(
     criteria:
       | string
       | number

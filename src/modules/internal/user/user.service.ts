@@ -36,7 +36,9 @@ export class UserService {
     const acceptToAdminInfoEncrypted = CryptoJsHelper.encrypt(
       JsonHelper.serialize(new AcceptToAdminDto(acceptToAdminToken, user.id)),
     );
-    const acceptToAdminLink = `${domain}/accept-to-admin?token=${acceptToAdminInfoEncrypted}`;
+    const acceptToAdminLink = `${domain}/accept-to-admin?token=${encodeURIComponent(
+      acceptToAdminInfoEncrypted,
+    )}`;
 
     const sendNotificationDto = JsonHelper.toInstance(SendNotificationDto, {
       recipients: [

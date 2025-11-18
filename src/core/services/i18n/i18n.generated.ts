@@ -103,10 +103,14 @@ export type I18nTranslations = {
             "USER_ERR_016": string;
             "USER_ERR_017": string;
         };
+        "ROL": {
+            "ROL_ERR_001": string;
+        };
     };
     "system": {
         "NOF": {
             "NOF_ERR_001": string;
+            "NOF_ERR_002": string;
         };
         "EXH": {
             "EXH_ERR_001": string;
